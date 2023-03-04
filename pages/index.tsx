@@ -11,20 +11,6 @@ interface Props {
 
 const Home = ({ products }: Props) => {
   const { user, loading } = useUser();
-  console.log({ user, loading, products });
-
-  const processSubscription = (priceId: string) => async () => {
-    try {
-      let key = process.env.NEXT_PUBLIC_STRIPE_KEY;
-      const { data } = await axios.get(`/api/checkout/${priceId}`);
-      if (key) {
-        const stripe = await loadStripe(key);
-        if (stripe) await stripe.redirectToCheckout({ sessionId: data.id });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -75,16 +61,19 @@ const Home = ({ products }: Props) => {
                   Buy {product?.transform_quantity?.divide_by} tokens
                 </h3>
 
-                <p className="mt-1.5 text-sm text-gray-700">
-                  ${priceInDollars}
-                </p>
+                <p className="mt-1.5 text-sm text-gray-700">{priceInDollars}</p>
 
-                <form className="mt-4">
+                <form
+                  className="mt-4"
+                  action={`/api/checkout/${product.id}`}
+                  method="POST"
+                >
                   <button
-                    onClick={processSubscription(product.id)}
+                    // onClick={processSubscription(product.id)}
+                    type="submit"
                     className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105"
                   >
-                    Buy for {priceInDollars}$
+                    Buy for Rs. {priceInDollars}
                   </button>
                 </form>
               </div>

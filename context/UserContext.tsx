@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useContext, useState, useEffect, FC, ReactNode } from "react";
-import { supabase, supabaseRealtime } from "../utils/supabase";
-import { PostgrestQueryBuilder } from "@supabase/postgrest-js";
+import { supabase } from "../utils/supabase";
 import axios from "axios";
 import storage from "../utils/storage";
 import { setAuthToken } from "../utils/modifyRequestHeder";
@@ -118,20 +117,18 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const setTokenInCookie = async () => {
-      console.log("setAuthToken");
       if (user) {
         const session = supabase.auth.getSession();
         const sessionData = await session?.then((data) => {
           return data.data.session;
         });
-        console.log("sessionData", sessionData, "storage.cookie.set");
         if (sessionData) {
           storage.cookie.set(
             "token",
-            sessionData?.refresh_token || "emptyToken"
+            sessionData?.access_token || "emptyToken"
           );
 
-          setAuthToken(sessionData?.refresh_token);
+          setAuthToken(sessionData?.access_token);
         }
       }
     };
