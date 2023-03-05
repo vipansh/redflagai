@@ -7,9 +7,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2022-11-15",
   });
-  //   const signature = req.headers["stripe-signature"] as string;
+ 
   const signingSecret = process.env.STRIPE_SIGNING_SECRET as string;
-  //   const reqBuffer = await buffer(req);
+ 
 
   let event = req.body;
 
@@ -18,37 +18,42 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // Handle the event
   switch (event.type) {
     case "checkout.session.async_payment_failed":
-      const checkoutSessionAsyncPaymentFailed = event.data.object;
-      // Then define and call a function to handle the event checkout.session.async_payment_failed
       break;
     case "checkout.session.async_payment_succeeded":
-      const checkoutSessionAsyncPaymentSucceeded = event.data.object;
-
-      // Then define and call a function to handle the event checkout.session.async_payment_succeeded
       break;
     case "checkout.session.completed":
       const checkoutSessionCompleted = event.data.object;
-      const { data: userData } = await supabase
-        .from("profiles")
-        .select("no_of_tokens")
-        .eq("stripe_customer", event.data.object.customer)
-        .single();
-
-      const { data, error } = await supabase
-        .from("profiles")
-        .update({
-          no_of_tokens: userData?.no_of_tokens + 100,
-        })
-        .eq("stripe_customer", event.data.object.customer);
-
       const { line_items } = await stripe.checkout.sessions.retrieve(
         checkoutSessionCompleted.id,
         {
           expand: ["line_items"],
         }
       );
+      if (line_items?.data[0]?.price?.transform_quantity) {
+        const { data: userData } = await supabase
+          .from("profiles")
+          .select("no_of_tokens")
+          .eq("stripe_customer", event.data.object.customer)
+          .single();
 
-      res.send({ no_of_tokens_added: 100, userData, data, error, line_items });
+        const { data, error } = await supabase
+          .from("profiles")
+          .update({
+            no_of_tokens:
+              userData?.no_of_tokens +
+              line_items.data[0].price.transform_quantity.divide_by,
+          })
+          .eq("stripe_customer", event.data.object.customer);
+
+        res.send({
+          no_of_tokens_added:
+            line_items?.data[0]?.price?.transform_quantity || 0,
+          userData,
+          data,
+          error,
+          line_items,
+        });
+      }
       break;
     case "checkout.session.expired":
       const checkoutSessionExpired = event.data.object;

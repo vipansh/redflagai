@@ -26,6 +26,19 @@ const Home = ({ products }: Props) => {
     }
   }, []);
 
+  const useToken = async () => {
+    try {
+      const data = await axios("/api/use-token", {
+        params: {
+          token_debited: 100,
+          input: "input",
+        },
+      });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -81,12 +94,7 @@ const Home = ({ products }: Props) => {
           );
         })}
       </div>
-
-      <form action="/api/checkout-session" method="POST">
-        <button type="submit" role="link">
-          Checkout
-        </button>
-      </form>
+      <button onClick={useToken}>use-token</button>
     </div>
   );
 };
