@@ -40,7 +40,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           no_of_tokens: userData?.no_of_tokens + 100,
         })
         .eq("stripe_customer", event.data.object.customer);
-      res.send({ no_of_tokens_added: 100, userData, data, error, event });
+
+      const { line_items } = await stripe.checkout.sessions.retrieve(
+        checkoutSessionCompleted.id,
+        {
+          expand: ["line_items"],
+        }
+      );
+
+      res.send({ no_of_tokens_added: 100, userData, data, error, line_items });
       break;
     case "checkout.session.expired":
       const checkoutSessionExpired = event.data.object;
