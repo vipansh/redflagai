@@ -35,6 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // Create Checkout Sessions from body params.
     const stripeSession = await stripe.checkout.sessions.create({
+      customer: userData.stripe_customer,
       line_items: [
         {
           // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
