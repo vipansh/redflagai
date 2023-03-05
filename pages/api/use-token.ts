@@ -52,6 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       user_id: user.id,
       token_debited: +token_debited,
       input,
+      status: true,
     });
 
   if (upsertError)
