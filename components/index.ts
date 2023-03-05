@@ -6,6 +6,9 @@ import LoginPopup from "./LoginPopup";
 import Navbar from "./Navbar";
 import ResizablePanel from "./ResizablePanel";
 import ActionAlert from "./ActionAlert";
+import Modal from "./Modal";
+import BuyTokenModal from "./BuyTokenModal";
+
 export {
   Footer,
   Github,
@@ -15,4 +18,6 @@ export {
   Navbar,
   ResizablePanel,
   ActionAlert,
+  Modal,
+  BuyTokenModal,
 };

@@ -44,8 +44,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:3000/?success=true`,
-      cancel_url: `http://localhost:3000/?canceled=true`,
+      success_url: `${
+        req.query.base_url || "http://localhost:3000"
+      }/?success=true`,
+      cancel_url: `${
+        req.query.base_url || "http://localhost:3000"
+      }/?canceled=true`,
     });
     res.redirect(303, stripeSession.url as string);
   } catch (err) {

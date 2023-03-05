@@ -4,11 +4,14 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { ActionAlert, Navbar, ResizablePanel } from "../components";
+import Stripe from "stripe";
+import { Navbar, ResizablePanel } from "../components";
 import { AllPopUps } from "../modules";
 
-type Props = {};
-const Dashboard = ({}: Props) => {
+type Props = {
+  products: Stripe.Price[];
+};
+const Dashboard = ({ products }: Props) => {
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [generatedBios, setGeneratedBios] = useState<String>("");
@@ -58,6 +61,7 @@ const Dashboard = ({}: Props) => {
   const handelOpenModal = (alertId: string) => {
     setOpenModal(alertId);
   };
+  console.log({ products });
 
   return (
     <div className="bg-white relative">
@@ -106,7 +110,7 @@ const Dashboard = ({}: Props) => {
                     className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
                     onClick={(e) => {
                       e.preventDefault();
-                      handelOpenModal("confirm");
+                      handelOpenModal("buyTokenModal");
                     }}
                   >
                     Check for redflags &rarr;
@@ -172,9 +176,29 @@ const Dashboard = ({}: Props) => {
         closeAlert={() => {
           setOpenModal("");
         }}
+        products={products}
       />
     </div>
   );
 };
 
 export default Dashboard;
+
+export const getStaticProps = async () => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2022-11-15",
+  });
+
+  const products = await stripe.prices.list();
+  const productList = products.data.sort((a, b) => {
+    const aDivideBy = a.transform_quantity?.divide_by ?? 1;
+    const bDivideBy = b.transform_quantity?.divide_by ?? 1;
+    return aDivideBy - bDivideBy;
+  });
+
+  return {
+    props: {
+      products: productList,
+    },
+  };
+};

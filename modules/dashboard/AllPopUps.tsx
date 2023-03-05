@@ -1,12 +1,14 @@
 import React from "react";
-import { ActionAlert } from "../../components";
+import Stripe from "stripe";
+import { ActionAlert, BuyTokenModal } from "../../components";
 
 type Props = {
   showAlertId: string;
   closeAlert: () => void;
+  products?: Stripe.Price[];
 };
 
-const AllPopUps = ({ showAlertId, closeAlert }: Props) => {
+const AllPopUps = ({ showAlertId, closeAlert, products }: Props) => {
   return (
     <>
       <ActionAlert
@@ -17,6 +19,11 @@ const AllPopUps = ({ showAlertId, closeAlert }: Props) => {
         para="Are you sure you want to confirm your booking? "
         primaryButtonText="Confirm"
         heading="Booking confirmation"
+      />
+      <BuyTokenModal
+        isOpen={showAlertId === "buyTokenModal"}
+        onClose={closeAlert}
+        products={products}
       />
     </>
   );
