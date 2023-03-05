@@ -28,13 +28,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "checkout.session.completed":
       const checkoutSessionCompleted = event.data.object;
+      const { data: userData } = await supabase
+        .from("profiles")
+        .select("no_of_tokens")
+        .eq("stripe_customer", event.data.object.customer)
+        .single();
+
       const { data, error } = await supabase
         .from("profiles")
         .update({
-          no_of_tokens: 100,
+          no_of_tokens: userData?.no_of_tokens + 100,
         })
         .eq("stripe_customer", event.data.object.customer);
-      res.send({ no_of_tokens_udated_by: 100, data, error });
+      res.send({ no_of_tokens_added: 100, userData, data, error, event });
       break;
     case "checkout.session.expired":
       const checkoutSessionExpired = event.data.object;
