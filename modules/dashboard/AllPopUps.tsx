@@ -6,19 +6,27 @@ type Props = {
   showAlertId: string;
   closeAlert: () => void;
   products?: Stripe.Price[];
+  extraData?: any;
+  generateBio: () => Promise<void>;
 };
 
-const AllPopUps = ({ showAlertId, closeAlert, products }: Props) => {
+const AllPopUps = ({
+  showAlertId,
+  closeAlert,
+  products,
+  extraData,
+  generateBio,
+}: Props) => {
   return (
     <>
       <ActionAlert
         open={showAlertId === "confirm"}
         onClose={closeAlert}
         secondaryButtonAction={closeAlert}
-        primaryAction={() => {}}
-        para="Are you sure you want to confirm your booking? "
+        primaryAction={generateBio}
+        para={`Your this order will required ${extraData?.token} tokens. Do you wish to proceed`}
         primaryButtonText="Confirm"
-        heading="Booking confirmation"
+        heading="Order confirmation"
       />
       <BuyTokenModal
         isOpen={showAlertId === "buyTokenModal"}

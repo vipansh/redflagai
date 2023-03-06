@@ -1,3 +1,4 @@
+import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -6,17 +7,23 @@ import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Stripe from "stripe";
 import { Navbar, ResizablePanel } from "../components";
+import { useUser } from "../context/UserContext";
 import { AllPopUps } from "../modules";
 
 type Props = {
   products: Stripe.Price[];
 };
 const Dashboard = ({ products }: Props) => {
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [generatedBios, setGeneratedBios] = useState<String>("");
 
-  const [openModal, setOpenModal] = useState("");
+  const [openModal, setOpenModal] = useState<{
+    modelId: string;
+    extraData?: any;
+  }>({ modelId: "", extraData: {} });
 
   const prompt = `What are redflag in this tersm and conditions: ${bio}`;
 
@@ -35,7 +42,10 @@ const Dashboard = ({ products }: Props) => {
     console.log("Edge function returned.");
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      console.log(response);
+      toast("Something went wrong", {
+        icon: "❌",
+      });
     }
 
     // This data is a ReadableStream
@@ -58,10 +68,50 @@ const Dashboard = ({ products }: Props) => {
     setLoading(false);
   };
 
-  const handelOpenModal = (alertId: string) => {
-    setOpenModal(alertId);
+  const handelOpenModal = (alertId: string, data?: any) => {
+    setOpenModal({
+      modelId: alertId,
+      extraData: data,
+    });
   };
-  console.log({ products });
+
+  const getTokenCount = async (prompt: string) => {
+    try {
+      const response = await axios("/api/get-token-count", {
+        params: {
+          prompt: bio,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return -1;
+    }
+  };
+
+  const checkForRedFlags = async () => {
+    if (!bio) {
+      toast("Enter some value", {
+        icon: "❌",
+      });
+      return;
+    }
+    setIsLoading(true);
+    const token = await getTokenCount(prompt);
+    if (user.no_of_tokens < token) {
+      handelOpenModal("buyTokenModal");
+    } else {
+      if (token.status) {
+        handelOpenModal("confirm", { token: token.tokenCount });
+      } else {
+        toast("Something went wrong", {
+          icon: "✂️",
+        });
+      }
+    }
+    setIsLoading(false);
+    console.log(token);
+  };
 
   return (
     <div className="bg-white relative">
@@ -95,25 +145,23 @@ const Dashboard = ({ products }: Props) => {
                     The Tenant will pay a rental bond in the amount of [Bond Amount] to the Landlord as security for the performance of the Tenant's obligations under the lease agreement.
             `}
                   />
-                  <p
-                    className={`text-sm ${
-                      bio.length > 300 ? "text-red-600" : "text-green-600"
-                    }  text-end`}
-                  >
+                  <p className={`text-sm text-green-600  text-end`}>
                     <span className="font-medium">
-                      Words Limit left ({bio.length}/300)
+                      Total words: {bio.length}
                     </span>
                   </p>
                 </div>
                 {!loading && (
                   <button
-                    className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+                    className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full disabled:bg-black/50"
                     onClick={(e) => {
                       e.preventDefault();
-                      handelOpenModal("buyTokenModal");
+                      // handelOpenModal("buyTokenModal");
+                      checkForRedFlags();
                     }}
+                    disabled={isLoading}
                   >
-                    Check for redflags &rarr;
+                    Check for redflags
                   </button>
                 )}
                 {loading && (
@@ -172,11 +220,15 @@ const Dashboard = ({ products }: Props) => {
         </div>
       </main>
       <AllPopUps
-        showAlertId={openModal}
+        showAlertId={openModal.modelId}
+        extraData={openModal.extraData}
         closeAlert={() => {
-          setOpenModal("");
+          setOpenModal({
+            modelId: "",
+          });
         }}
         products={products}
+        generateBio={generateBio}
       />
     </div>
   );
