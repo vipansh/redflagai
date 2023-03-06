@@ -1,4 +1,6 @@
+import { CrossSvg } from "../svgs";
 import Modal from "./Modal";
+import { motion } from "framer-motion";
 
 interface ActionAlertProps {
   open: boolean;
@@ -23,6 +25,18 @@ const ActionAlert = ({
 }: ActionAlertProps) => {
   return (
     <Modal isOpen={open} onClose={onClose}>
+      <motion.div
+        className="absolute cursor-pointer -top-1 -right-1 rounded-full border border-gray-300 bg-gray-100 p-1 "
+        onClick={onClose}
+        tabIndex={0}
+        initial={{ top: 40, opacity: 0 }}
+        animate={{ top: -50, opacity: 1 }}
+        exit={{ top: 40, opacity: 0 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <CrossSvg />
+      </motion.div>
       <h2 className="text-lg font-bold">{heading}</h2>
       <p className="mt-2 text-sm text-gray-500">{para}</p>
       <div className="mt-4 flex gap-2 justify-end">

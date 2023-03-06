@@ -21,8 +21,8 @@ const CrossSvg = ({
   return (
     <SvgWrapper className={className}>
       <motion.path
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         d="M6 18L18 6M6 6l12 12"
         variants={pathVariants}
       />

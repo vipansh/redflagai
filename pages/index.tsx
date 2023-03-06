@@ -47,7 +47,7 @@ const Home = ({ products }: Props) => {
       </Head>
       {!loading
         ? user
-          ? `Number of toklens : ${user.no_of_tokens} `
+          ? `Number of toklens : ${user?.no_of_tokens} `
           : "LoginIn"
         : "Loading"}
 

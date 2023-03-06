@@ -1,6 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
-import { CrossSvg } from "../svgs";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -26,39 +25,39 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   }, [isOpen, onClose]);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            className="fixed inset-0 bg-black/30 opacity-50 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
-          <motion.div
-            className="absolute  bg-white p-6 rounded-md  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="absolute cursor-pointer -top-1 -right-1 rounded-full border border-gray-300 bg-gray-100 p-1 overflow-y-scroll"
-              onClick={onClose}
-              tabIndex={0}
-              initial={{ top: 40, opacity: 0 }}
-              animate={{ top: -50, opacity: 1 }}
-              exit={{ top: 40, opacity: 0 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 overflow-y-auto">
+          <div className="relative flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
             >
-              <CrossSvg />
-            </motion.div>
-            {children}
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+              <Dialog.Panel className="w-auto  transform  rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                {children}
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition>
   );
 };
 

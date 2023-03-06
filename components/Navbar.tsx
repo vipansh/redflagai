@@ -21,7 +21,7 @@ export default function Navbar() {
                   "block px-6 py-2 text-sm text-gray-700 cursor-pointer"
                 )}
               >
-                No: of tokens: {user.no_of_tokens}
+                No: of tokens: {user?.no_of_tokens}
               </div>
             </div>
           </div>
@@ -31,10 +31,10 @@ export default function Navbar() {
               <div>
                 <Menu.Button className="flex rounded-full bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 p-1 items-center space-x-1">
                   <span className="sr-only">Open user menu</span>
-                  <div> {user.user_metadata.full_name}</div>
+                  <div> {user?.user_metadata.full_name}</div>
                   <img
                     className="h-8 w-8 rounded-full"
-                    src={user.user_metadata.avatar_url}
+                    src={user?.user_metadata.avatar_url}
                     alt=""
                   />
                 </Menu.Button>
@@ -57,7 +57,7 @@ export default function Navbar() {
                           "block px-6 py-2 text-sm text-gray-700 cursor-pointer"
                         )}
                       >
-                        No: of tokens: {user.no_of_tokens}
+                        No: of tokens: {user?.no_of_tokens}
                       </div>
                     )}
                   </Menu.Item>
