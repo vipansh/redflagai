@@ -11,6 +11,8 @@ import BuyTokenModal from "./BuyTokenModal";
 import ThreeDotWave from "./ThreeDotWave";
 import Anoucement from "./Anoucement";
 import Confetti from "./Confetti";
+import SignInWithGoogleButton from "./SignInWithGoogleButton";
+
 export {
   Footer,
   Github,
@@ -25,4 +27,5 @@ export {
   ThreeDotWave,
   Anoucement,
   Confetti,
+  SignInWithGoogleButton,
 };

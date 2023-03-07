@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
-import { Navbar } from "../components";
+import { Navbar, SignInWithGoogleButton } from "../components";
 import Image from "next/image";
-import RedglagAppImage from "public/RedflagApp.png";
-
+import redglagAppImage from "public/RedflagApp.png";
+import backgroundImage from "public/background.jpg";
 interface Props {
   products: Stripe.Price[];
 }
@@ -18,53 +18,46 @@ const Home = ({ products }: Props) => {
         <title>Red flag ai</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!loading
-        ? user
-          ? `Number of toklens : ${user?.no_of_tokens} `
-          : "LoginIn"
-        : "Loading"}
-
       <Navbar products={products} />
+      <section className="relative py-10 overflow-hidden bg-slate-50 sm:py-32 hero-pattern">
+        <Image
+          alt=""
+          {...backgroundImage}
+          decoding="async"
+          data-nimg="1"
+          className="absolute top-0 left-1/2 max-w-none translate-x-[-30%] -translate-y-1/4"
+          loading="lazy"
+          style={{ color: "transparent" }}
+        />
 
-      <section className="text-gray-600 body-font">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-          <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left">
-              Revolutionize your legal document review process with -
-              <span className="mx-1 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                ReadFlagAI
-              </span>
-            </h1>
-            <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
-              the AI-powered tool that detects red flags in terms and
-              conditions.!
-            </p>
-            <div className="flex justify-center">
-              <div className="bg-gray-50 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
-                <button
-                  className=" flex space-x-3 border px-8 py-3 rounded-lg"
-                  type="button"
-                >
-                  <Image
-                    width={18}
-                    height={18}
-                    className="h-6 w-6"
-                    alt="googl_icon"
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  />{" "}
-                  <div>Sign in with Google</div>
-                </button>
+        <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
+          <div className="flex flex-wrap items-center sm:-mx-3">
+            <div className="w-full md:w-1/2 md:px-3">
+              <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
+                <h1 className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left">
+                  Revolutionize your legal document review process with -
+                  <span className="mx-1 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+                    ReadFlagAI
+                  </span>
+                </h1>
+                <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+                  the AI-powered tool that detects red flags in terms and
+                  conditions.!
+                </p>
+                {!loading && (
+                  <div className="relative flex flex-col sm:flex-row sm:space-x-4 justify-center">
+                    <SignInWithGoogleButton />
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-          <div className="relative lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-            <Image
-              className="absolute object-cover object-center rounded"
-              alt="hero"
-              src={RedglagAppImage.src}
-              width={500}
-              height={500}
-            />
+            <div className="w-full md:w-1/2 relative">
+              <Image
+                className=" absolute top-0 left-0 object-cover object-left-top"
+                alt="redflag AI"
+                {...redglagAppImage}
+              />
+            </div>
           </div>
         </div>
       </section>
