@@ -12,7 +12,7 @@ const SignInWithGoogleButton = (props: Props) => {
   if (user) {
     return (
       <Link
-        className="flex space-x-2 border-2 border-gray-800 rounded-md px-6 py-2 items-center shadow-md"
+        className="flex space-x-2 border-2 border-blue-500 rounded-md px-6 py-2 items-center shadow-md"
         href="/dashboard/check"
       >
         <Image
@@ -37,7 +37,7 @@ const SignInWithGoogleButton = (props: Props) => {
 
   return (
     <motion.button
-      className=" flex space-x-3 border px-8 py-3 rounded-lg"
+      className=" flex space-x-3 shadow-md px-8 py-3  border-2 border-blue-500 rounded-md"
       type="button"
       onClick={login}
       whileHover={{ scale: 1.05 }}

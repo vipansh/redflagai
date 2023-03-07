@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "../context/UserContext";
 import ResizablePanel from "./ResizablePanel";
+import { supabase } from "../utils/supabase";
 
 type Props = {};
 
@@ -38,12 +39,17 @@ const Anoucement = (props: Props) => {
     }
   }, [loading]);
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setIsLoading(true);
+    await supabase.from("wish_list").insert({
+      user: user.id,
+      email: enteredEmail,
+    });
+
     setTimeout(() => {
       hideModal();
-    }, 5000);
+    }, 3000);
   };
 
   return (
@@ -90,6 +96,7 @@ const Anoucement = (props: Props) => {
                     Sign up now to be the first in line and enjoy extra perks.
                     With our platform, you'll have the power to write and
                     customize terms and policies in a fraction of a second.
+                    Revamp your terms and conditions hassle-free.
                   </p>
                 </div>
 
@@ -148,7 +155,8 @@ const Anoucement = (props: Props) => {
       <div className="fixed inset-x-0 bottom-0">
         <div className="bg-indigo-600 px-4 py-3 text-white">
           <p className="text-center text-sm font-medium">
-            Revamp your terms and conditions hassle-free.
+            Comming Soon : Unlock power to write and customize terms and
+            policies in a fraction of a second
             <span
               className="inline-block underline ml-2 cursor-pointer"
               onClick={showModal}
