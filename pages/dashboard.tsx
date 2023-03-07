@@ -9,6 +9,7 @@ import Stripe from "stripe";
 import { Navbar, ResizablePanel } from "../components";
 import { useUser } from "../context/UserContext";
 import { AllPopUps } from "../modules";
+import storage from "../utils/storage";
 
 type Props = {
   products: Stripe.Price[];
@@ -25,8 +26,6 @@ const Dashboard = ({ products }: Props) => {
     extraData?: any;
   }>({ modelId: "", extraData: {} });
 
-  const prompt = `What are redflag in this tersm and conditions: ${bio}`;
-
   const generateBio = async () => {
     setGeneratedBios("");
     setLoading(true);
@@ -36,7 +35,7 @@ const Dashboard = ({ products }: Props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt,
+        prompt: bio,
       }),
     });
     console.log("Edge function returned.");
@@ -97,7 +96,7 @@ const Dashboard = ({ products }: Props) => {
       return;
     }
     setIsLoading(true);
-    const token = await getTokenCount(prompt);
+    const token = await getTokenCount(bio);
     if (user.no_of_tokens < token) {
       handelOpenModal("buyTokenModal");
     } else {

@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse<TokenCountResponse>
 ) {
   const { prompt } = req.query as { prompt: string };
-  const actualPrompt = `What are redflag in this tersm and conditions: ${prompt}`;
+  const actualPrompt = `What are redflag in this term and conditions: ${prompt}`;
 
   if (!prompt) {
     return res.status(500).json({
@@ -46,7 +46,11 @@ export default async function handler(
   }
 }
 
-async function getTokens(prompt: string, apiKey: string, apiUrl: string) {
+export async function getTokens(
+  prompt: string,
+  apiKey: string,
+  apiUrl: string
+) {
   const requestOptions = {
     method: "POST",
     headers: {

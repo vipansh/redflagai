@@ -123,10 +123,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
           return data.data.session;
         });
         if (sessionData) {
-          storage.cookie.set(
-            "token",
-            sessionData?.access_token || "emptyToken"
-          );
+          storage.cookie.set("token", sessionData?.access_token || "");
 
           setAuthToken(sessionData?.access_token);
         }
