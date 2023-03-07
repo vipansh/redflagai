@@ -58,6 +58,10 @@ const handler = async (req: Request): Promise<Response> => {
     .single();
   if (!userData) return new Response("No user found", { status: 500 });
 
+  if (userData?.no_of_tokens < tokenCount.usage.total_tokens) {
+    return new Response("Not enough token in account");
+  }
+
   const { error: updateError } = await supabase
     .from("profiles")
     .update({

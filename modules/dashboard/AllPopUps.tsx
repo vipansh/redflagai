@@ -32,6 +32,7 @@ const AllPopUps = ({
         isOpen={showAlertId === "buyTokenModal"}
         onClose={closeAlert}
         products={products}
+        heading={extraData?.heading}
       />
     </>
   );

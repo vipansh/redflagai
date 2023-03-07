@@ -108,8 +108,12 @@ const Dashboard = ({ products }: Props) => {
     }
     setIsLoading(true);
     const token = await getTokenCount(bio);
-    if (user.no_of_tokens < token) {
-      handelOpenModal("buyTokenModal");
+    if (user.no_of_tokens < token.tokenCount) {
+      handelOpenModal("buyTokenModal", {
+        heading: `You do not have enough tokens to run this query. You need ${
+          token.tokenCount - user.no_of_tokens
+        } more tokens.`,
+      });
     } else {
       if (token.status) {
         handelOpenModal("confirm", { token: token.tokenCount });
