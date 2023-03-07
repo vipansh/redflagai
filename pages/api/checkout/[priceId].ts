@@ -14,7 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const {
     data: { user },
-    error,
   } = await supabase.auth.getUser(req.cookies.token);
   if (!user) return res.status(500).json({ error: "Log in again" });
 
