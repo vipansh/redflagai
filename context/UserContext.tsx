@@ -36,7 +36,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   };
 
   const getURL = () => {
-    let url = "https://redflagai.vercel.app/dashboard/check/";
+    let url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/dashboard/check/`;
     return url;
   };
 
@@ -54,7 +54,9 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     const fun = async () => {
       await supabase.auth.signOut();
       setUserValue(null);
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+      }, 100);
     };
     fun();
   }
