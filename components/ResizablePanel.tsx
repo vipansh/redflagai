@@ -6,12 +6,12 @@ export default function ResizablePanel({
 }: {
   children: React.ReactNode;
 }) {
-  let [ref, { height }] = useMeasure();
+  let [ref, { height, width }] = useMeasure();
 
   return (
     <motion.div
       animate={height ? { height } : {}}
-      style={height ? { height } : {}}
+      style={height ? { height, width } : {}}
       className="relative w-full overflow-hidden"
       transition={{ type: "tween", duration: 0.5 }}
     >

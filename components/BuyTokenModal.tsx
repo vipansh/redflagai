@@ -10,6 +10,7 @@ interface BuyTokenModalProps {
   products?: Stripe.Price[];
   isOpen: boolean;
   onClose: () => void;
+  heading?: string;
 }
 
 const getPosition = (index: number) => {
@@ -29,6 +30,7 @@ const BuyTokenModal: React.FC<BuyTokenModalProps> = ({
   products,
   isOpen,
   onClose,
+  heading,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -36,9 +38,9 @@ const BuyTokenModal: React.FC<BuyTokenModalProps> = ({
     setLoading(true);
 
     try {
-      const response = await axios.post(`/api/checkout/${id}`, {
+      const response = await axios(`/api/checkout/${id}`, {
         params: {
-          base_url: "http://localhost:3000/dashboard",
+          base_url: "http://localhost:3000/dashboard/check/",
         },
       });
       const { data } = response;
@@ -77,7 +79,7 @@ const BuyTokenModal: React.FC<BuyTokenModalProps> = ({
         className="w-full rounded-lg  my-3 "
       >
         <p className="text-base text-gray-700 md:text-lg text-center my-1">
-          Out of tokens
+          {heading ? heading : "Out of tokens"}
         </p>
         <p className="text-base text-gray-700 md:text-lg text-center my-1">
           Choose the package that fits your needs best.
@@ -98,33 +100,33 @@ const BuyTokenModal: React.FC<BuyTokenModalProps> = ({
                   " relative block overflow-hidden flex-grow-1 border rounded-md "
                 )}
               >
-                <div className="relative border border-gray-100 bg-white p-6">
-                  {index === 1 ? (
-                    <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
-                      Popular{" "}
-                    </span>
-                  ) : (
-                    <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
-                  )}
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">
-                    Buy {product?.transform_quantity?.divide_by} tokens
-                  </h3>
+                <form action={`/api/checkout/${product.id}`} method="POST">
+                  <div className="relative border border-gray-100 bg-white p-6">
+                    {index === 1 ? (
+                      <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
+                        Popular{" "}
+                      </span>
+                    ) : (
+                      <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
+                    )}
+                    <h3 className="mt-4 text-lg font-medium text-gray-900">
+                      Buy {product?.transform_quantity?.divide_by} tokens
+                    </h3>
 
-                  <p className="mt-1.5 text-sm text-gray-700 py-3">
-                    {product?.metadata?.para}
-                  </p>
+                    <p className="mt-1.5 text-sm text-gray-700 py-3">
+                      {product?.metadata?.para}
+                    </p>
 
-                  <motion.button
-                    onClick={() => {
-                      handleSubmit(product.id);
-                    }}
-                    disabled={loading}
-                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    Buy for Rs. {priceInRupee}/-
-                  </motion.button>
-                </div>
+                    <motion.button
+                      type="submit"
+                      disabled={loading}
+                      className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      Buy for Rs. {priceInRupee}/-
+                    </motion.button>
+                  </div>
+                </form>
               </motion.div>
             );
           })}

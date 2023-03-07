@@ -8,7 +8,9 @@ import ResizablePanel from "./ResizablePanel";
 import ActionAlert from "./ActionAlert";
 import Modal from "./Modal";
 import BuyTokenModal from "./BuyTokenModal";
-
+import ThreeDotWave from "./ThreeDotWave";
+import Anoucement from "./Anoucement";
+import Confetti from "./Confetti";
 export {
   Footer,
   Github,
@@ -20,4 +22,7 @@ export {
   ActionAlert,
   Modal,
   BuyTokenModal,
+  ThreeDotWave,
+  Anoucement,
+  Confetti,
 };

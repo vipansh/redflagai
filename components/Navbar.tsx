@@ -1,15 +1,30 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames } from "../utils/classNames";
 import { FireSvg } from "../svgs";
 import { useUser } from "../context/UserContext";
+import BuyTokenModal from "./BuyTokenModal";
+import Stripe from "stripe";
 
-export default function Navbar() {
+type Props = {
+  products: Stripe.Price[];
+};
+
+export default function Navbar({ products }: Props) {
   const { user, loading } = useUser();
+  const [showBuyModal, setShowBuyModal] = useState(false);
   console.log({ user });
   if (loading) return null;
   return (
     <Disclosure as="nav">
+      <BuyTokenModal
+        isOpen={showBuyModal}
+        onClose={() => {
+          setShowBuyModal(false);
+        }}
+        products={products}
+        heading={"Get the best value"}
+      />
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -23,6 +38,13 @@ export default function Navbar() {
               >
                 No: of tokens: {user?.no_of_tokens}
               </div>
+              <button
+                onClick={() => {
+                  setShowBuyModal(true);
+                }}
+              >
+                Buy Token
+              </button>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -67,6 +89,9 @@ export default function Navbar() {
                       className={classNames(
                         "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                       )}
+                      onClick={() => {
+                        setShowBuyModal(true);
+                      }}
                     >
                       <div className="bg-blue-200 hover:bg-blue-300 px-2 py-2 rounded">
                         Buy more tokens
