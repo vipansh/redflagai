@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useUser } from "../context/UserContext";
 
 const logout = () => {
-  const { logout } = useUser();
+  const { logout, loading } = useUser();
   useEffect(() => {
+    console.log("calling logout function", logout);
     logout();
-  }, []);
+  }, [loading]);
 
   return <div>logout</div>;
 };
