@@ -179,7 +179,7 @@ const Dashboard = ({ products }: Props) => {
                       Check for redflags
                     </button>
                   )}
-                  {loading && <ThreeDotWave />}
+                  {true && <ThreeDotWave />}
                 </div>
                 <Toaster
                   position="top-center"

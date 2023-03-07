@@ -7,17 +7,11 @@ interface ThreeDotWaveProps {
 }
 
 const ThreeDotWave: React.FC<ThreeDotWaveProps> = ({
-  size = 50,
+  size = 10,
   color = "#000",
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="flex justify-center items-center mt-12">
       <motion.div
         style={{ marginRight: "10px" }}
         animate={{ y: [0, -10, 0], rotate: [0, 360, 0] }}
