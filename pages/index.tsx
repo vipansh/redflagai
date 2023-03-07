@@ -3,7 +3,7 @@ import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
 import { Navbar, SignInWithGoogleButton, MetaData } from "../components";
 import Image from "next/image";
-import redglagAppImage from "public/RedflagApp.png";
+import redglagAppImage from "public/redflagApp.png";
 import { motion } from "framer-motion";
 import backgroundImage from "public/background.jpg";
 interface Props {
