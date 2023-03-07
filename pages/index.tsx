@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { useEffect } from "react";
 import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
-import axios, { AxiosRequestHeaders } from "axios";
-import { loadStripe } from "@stripe/stripe-js";
+import { Navbar } from "../components";
+import Image from "next/image";
+import RedglagAppImage from "public/RedflagApp.png";
 
 interface Props {
   products: Stripe.Price[];
@@ -12,35 +12,8 @@ interface Props {
 const Home = ({ products }: Props) => {
   const { user, loading } = useUser();
 
-  useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search);
-    if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
-    }
-
-    if (query.get("canceled")) {
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you’re ready."
-      );
-    }
-  }, []);
-
-  const useToken = async () => {
-    try {
-      const data = await axios("/api/use-token", {
-        params: {
-          token_debited: 100,
-          input: "input",
-        },
-      });
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <>
       <Head>
         <title>Red flag ai</title>
         <link rel="icon" href="/favicon.ico" />
@@ -51,51 +24,51 @@ const Home = ({ products }: Props) => {
           : "LoginIn"
         : "Loading"}
 
-      {}
-      <div className="flex space-x-3 ">
-        {products.map((product, index) => {
-          const priceInCents = product?.unit_amount ?? 0;
-          const priceInDollars = priceInCents / 100;
-          return (
-            <div
-              className="group relative block overflow-hidden flex-grow-1"
-              key={product.id}
-            >
-              <div className="relative border border-gray-100 bg-white p-6">
-                {index === 1 ? (
-                  <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
-                    Popular{" "}
-                  </span>
-                ) : (
-                  <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
-                )}
+      <Navbar products={products} />
 
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
-                  Buy {product?.transform_quantity?.divide_by} tokens
-                </h3>
-
-                <p className="mt-1.5 text-sm text-gray-700">{priceInDollars}</p>
-
-                <form
-                  className="mt-4"
-                  action={`/api/checkout/${product.id}`}
-                  method="POST"
+      <section className="text-gray-600 body-font">
+        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+          <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+            <h1 className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left">
+              Revolutionize your legal document review process with -
+              <span className="mx-1 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+                ReadFlagAI
+              </span>
+            </h1>
+            <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+              the AI-powered tool that detects red flags in terms and
+              conditions.!
+            </p>
+            <div className="flex justify-center">
+              <div className="bg-gray-50 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+                <button
+                  className=" flex space-x-3 border px-8 py-3 rounded-lg"
+                  type="button"
                 >
-                  <button
-                    // onClick={processSubscription(product.id)}
-                    type="submit"
-                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105"
-                  >
-                    Buy for Rs. {priceInDollars}
-                  </button>
-                </form>
+                  <Image
+                    width={18}
+                    height={18}
+                    className="h-6 w-6"
+                    alt="googl_icon"
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  />{" "}
+                  <div>Sign in with Google</div>
+                </button>
               </div>
             </div>
-          );
-        })}
-      </div>
-      <button onClick={useToken}>use-token</button>
-    </div>
+          </div>
+          <div className="relative lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+            <Image
+              className="absolute object-cover object-center rounded"
+              alt="hero"
+              src={RedglagAppImage.src}
+              width={500}
+              height={500}
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
