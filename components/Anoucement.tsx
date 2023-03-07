@@ -86,7 +86,7 @@ const Anoucement = (props: Props) => {
           </motion.div>
           <ResizablePanel>
             {!isLoading ? (
-              <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="mx-auto max-w-lg text-center">
                   <h1 className="text-2xl font-bold sm:text-3xl">
                     Be the First to Know!
@@ -112,7 +112,7 @@ const Anoucement = (props: Props) => {
                     <div className="relative">
                       <input
                         type="email"
-                        className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+                        className="w-full rounded-lg border-gray-900 p-4 pr-12 text-sm border"
                         placeholder="Enter email"
                         value={enteredEmail}
                         onChange={(e) => {
