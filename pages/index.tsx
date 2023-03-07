@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
-import { Navbar, SignInWithGoogleButton } from "../components";
+import { Navbar, SignInWithGoogleButton, MetaData } from "../components";
 import Image from "next/image";
 import redglagAppImage from "public/RedflagApp.png";
 import { motion } from "framer-motion";
@@ -15,10 +15,7 @@ const Home = ({ products }: Props) => {
 
   return (
     <>
-      <Head>
-        <title>Red flag ai</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <MetaData />
       <Navbar products={products} />
 
       <section className="relative py-10 overflow-hidden bg-slate-50 sm:py-32 hero-pattern">

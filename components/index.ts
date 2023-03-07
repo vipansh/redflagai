@@ -12,7 +12,7 @@ import ThreeDotWave from "./ThreeDotWave";
 import Anoucement from "./Anoucement";
 import Confetti from "./Confetti";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
-
+import MetaData from "./MetaData";
 export {
   Footer,
   Github,
@@ -28,4 +28,5 @@ export {
   Anoucement,
   Confetti,
   SignInWithGoogleButton,
+  MetaData, 
 };
