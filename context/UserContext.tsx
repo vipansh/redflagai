@@ -36,7 +36,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   };
 
   const getURL = () => {
-    let url = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/dashboard/check/`;
+    let url = `https://${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/check/`;
     return url;
   };
 
