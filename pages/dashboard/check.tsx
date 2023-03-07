@@ -179,7 +179,7 @@ const Dashboard = ({ products }: Props) => {
                       Check for redflags
                     </button>
                   )}
-                  {true && <ThreeDotWave />}
+                  {loading && <ThreeDotWave />}
                 </div>
                 <Toaster
                   position="top-center"
@@ -198,9 +198,7 @@ const Dashboard = ({ products }: Props) => {
                             </h2>
                           </div>
                           <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                            <div className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border">
-                              <p>{generatedBios}</p>
-                            </div>
+                            <p>{generatedBios}</p>
                           </div>
                         </>
                       )}
