@@ -40,7 +40,9 @@ const BuyTokenModal: React.FC<BuyTokenModalProps> = ({
     try {
       const response = await axios(`/api/checkout/${id}`, {
         params: {
-          base_url: "http://localhost:3000/dashboard/check/",
+          base_url:
+            `${process?.env?.NEXT_PUBLIC_VERCEL_UR}/dashboard/check` ||
+            "https://redflagai.vercel.app/dashboard/check/",
         },
       });
       const { data } = response;

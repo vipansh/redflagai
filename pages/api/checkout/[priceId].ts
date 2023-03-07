@@ -44,12 +44,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       ],
       mode: "payment",
-      success_url: `${
-        req.query.base_url || "http://localhost:3000/dashboard/check/"
-      }/?success=true`,
-      cancel_url: `${
-        req.query.base_url || "http://localhost:3000/dashboard/check/"
-      }/?canceled=true`,
+      success_url: "https://redflagai.vercel.app/dashboard/check/?success=true",
+      cancel_url: `https://redflagai.vercel.app/?canceled=true`,
     });
     res.redirect(303, stripeSession.url as string);
   } catch (err) {
