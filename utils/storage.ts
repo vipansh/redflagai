@@ -32,7 +32,6 @@ const cookieSet = (key: string, value: string) => {
   const edValue = value;
   if (!edValue) return;
   Cookie.set(key, edValue, {
-    secure: process.env.NODE_ENV === "production",
     expires: 365 * 10, // 10 years
   });
 };
