@@ -7,9 +7,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2022-11-15",
   });
- 
+
   const signingSecret = process.env.STRIPE_SIGNING_SECRET as string;
- 
 
   let event = req.body;
 
@@ -48,10 +47,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.send({
           no_of_tokens_added:
             line_items?.data[0]?.price?.transform_quantity || 0,
-          userData,
-          data,
-          error,
-          line_items,
         });
       }
       break;
@@ -62,9 +57,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
-      res.send({ recived: true });
+      res.send({ recived: true, no_of_tokens_added: 0 });
   }
-  res.send({ recived: supabase, event });
+  res.send({ recived: supabase, no_of_tokens_added: 0 });
 };
 
 export default handler;
