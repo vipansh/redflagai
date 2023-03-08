@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Stripe from "stripe";
 import {
@@ -41,6 +41,16 @@ const Dashboard = ({ products }: Props) => {
     modelId: string;
     extraData?: any;
   }>({ modelId: "", extraData: {} });
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      const tempBio = storage.localStorage.getItem("temp");
+      if (tempBio) {
+        setBio(tempBio);
+      }
+    }
+  }, []);
 
   const generateBio = async () => {
     setGeneratedBios("");
@@ -92,6 +102,7 @@ const Dashboard = ({ products }: Props) => {
       modelId: alertId,
       extraData: data,
     });
+    storage.localStorage.removeItem("temp");
   };
 
   const getTokenCount = async (prompt: string) => {
@@ -123,6 +134,7 @@ const Dashboard = ({ products }: Props) => {
           token.tokenCount - user.no_of_tokens
         } more tokens.`,
       });
+      storage.localStorage.setItem("temp", bio);
     } else {
       if (token.status) {
         handelOpenModal("confirm", { token: token.tokenCount });
