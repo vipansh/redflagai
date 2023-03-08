@@ -23,7 +23,19 @@ export async function OpenAIStream(payload: string) {
     method: "POST",
     body: JSON.stringify({
       ...defaultValues,
-      messages: [{ role: "user", content: payload }],
+      messages: [
+        {
+          role: "user",
+          content:
+            "Act as an expert drafter, your task is to thoroughly review the provided terms and conditions and identify any significant issues. Mark any problematic text with [start] before and [end] after, using a maximum of six words in between if it's something that is of the most criticality. Use clear and concise language that is easy for the client to understand.Highlight issues based solely on the terms and conditions provided without assuming or inferring anything beyond what is explicitly stated. Highlight text with [start] and [end] if its is verry critical",
+        },
+        {
+          role: "assistant",
+          content:
+            "Got it, I understand your instructions. Please provide me with the terms and conditions that need to be reviewed.",
+        },
+        { role: "user", content: payload },
+      ],
     }),
   });
   console.log({ res });

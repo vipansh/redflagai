@@ -23,7 +23,10 @@ type Props = {
 
 function replaceText(text: string): string {
   return text
-    .replace(/\[start\]/g, '<span className="text-red">')
+    .replace(
+      /\[start\]/g,
+      '<span class="text-lg bg-red-600 p-1 rounded text-white">'
+    )
     .replace(/\[end\]/g, "</span>");
 }
 
@@ -203,8 +206,12 @@ const Dashboard = ({ products }: Props) => {
                               Here are your results
                             </h2>
                           </div>
-                          <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                            <p>{replaceText(generatedBios)}</p>
+                          <div className="space-y-8 flex flex-col items-center justify-center  mx-auto">
+                            <p
+                              dangerouslySetInnerHTML={{
+                                __html: replaceText(generatedBios),
+                              }}
+                            ></p>
                           </div>
                         </>
                       )}
