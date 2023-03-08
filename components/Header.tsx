@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FlagSvg, MoneySvg } from "../svgs";
+import TextRedflagAI from "./TextRedflagAI";
 
 export default function Header() {
   return (
@@ -8,7 +9,7 @@ export default function Header() {
       <Link href="/" className="flex space-x-3">
         <MoneySvg />
         <h1 className="sm:text-4xl text-2xl font-bold ml-2 tracking-tight">
-          redflags.ai
+          <TextRedflagAI />
         </h1>
       </Link>
       <a

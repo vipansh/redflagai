@@ -6,6 +6,7 @@ import Image from "next/image";
 import redglagAppImage from "public/redflagApp.png";
 import { motion } from "framer-motion";
 import backgroundImage from "public/background.jpg";
+import TextRedflagAI from "../components/TextRedflagAI";
 interface Props {
   products: Stripe.Price[];
 }
@@ -40,9 +41,7 @@ const Home = ({ products }: Props) => {
                   className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left"
                 >
                   Revolutionize your legal document review process with -
-                  <span className="mx-1 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                    RedFlagAI
-                  </span>
+                  <TextRedflagAI />
                 </motion.h1>
                 <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
                   the AI-powered tool that detects red flags in terms and

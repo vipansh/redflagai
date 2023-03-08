@@ -7,6 +7,7 @@ import BuyTokenModal from "./BuyTokenModal";
 import Stripe from "stripe";
 import Link from "next/link";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
+import TextRedflagAI from "./TextRedflagAI";
 
 type Props = {
   products: Stripe.Price[];
@@ -31,8 +32,13 @@ export default function Navbar({ products }: Props) {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <FireSvg className="block h-8 w-auto" />
-              <span className="ml-3 text-sm font-medium"> Red flag </span>
+              <Link
+                href={"/"}
+                className="flex space-x-2 items-center justify-center"
+              >
+                <FireSvg className="block h-8 w-auto" />
+                <TextRedflagAI />
+              </Link>
               {user && (
                 <>
                   {" "}
@@ -117,7 +123,7 @@ export default function Navbar({ products }: Props) {
                             "block px-6 py-2 text-sm text-gray-700"
                           )}
                         >
-                          Check for redflag
+                          Check for <TextRedflagAI />
                         </Link>
                       )}
                     </Menu.Item>

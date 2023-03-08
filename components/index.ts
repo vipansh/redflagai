@@ -13,6 +13,9 @@ import Anoucement from "./Anoucement";
 import Confetti from "./Confetti";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import MetaData from "./MetaData";
+import PricingTabel from "./PricingTabel";
+import TextRedflagAI from "./TextRedflagAI";
+
 export {
   Footer,
   Github,
@@ -28,5 +31,6 @@ export {
   Anoucement,
   Confetti,
   SignInWithGoogleButton,
-  MetaData, 
+  MetaData,
+  PricingTabel,
 };
