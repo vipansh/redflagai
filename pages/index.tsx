@@ -41,7 +41,7 @@ const Home = ({ products }: Props) => {
                 >
                   Revolutionize your legal document review process with -
                   <span className="mx-1 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                    ReadFlagAI
+                    RedFlagAI
                   </span>
                 </motion.h1>
                 <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
