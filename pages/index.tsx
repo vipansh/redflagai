@@ -1,7 +1,12 @@
 import Head from "next/head";
 import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
-import { Navbar, SignInWithGoogleButton, MetaData } from "../components";
+import {
+  Navbar,
+  SignInWithGoogleButton,
+  MetaData,
+  Footer,
+} from "../components";
 import Image from "next/image";
 import redglagAppImage from "public/redflagApp.png";
 import { motion } from "framer-motion";
@@ -66,6 +71,7 @@ const Home = ({ products }: Props) => {
             </div>
           </div>
         </div>
+        <Footer />
       </section>
     </>
   );
