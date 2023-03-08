@@ -1,4 +1,4 @@
-import { OpenAIStream, OpenAIStreamPayload } from "../../utils/openAIStream";
+import { OpenAIStream } from "../../utils/openAIStream";
 import { supabase } from "../../utils/supabase";
 import { getTokens } from "./get-token-count";
 
@@ -84,19 +84,7 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response("Unable to create order", { status: 500 });
   }
 
-  const payload: OpenAIStreamPayload = {
-    model: "text-davinci-003",
-    prompt: actualPrompt,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    max_tokens: 200,
-    stream: true,
-    n: 1,
-  };
-
-  const stream = await OpenAIStream(payload);
+  const stream = await OpenAIStream(actualPrompt);
   return new Response(stream);
 };
 
