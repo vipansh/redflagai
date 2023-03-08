@@ -18,7 +18,8 @@ const handler = async (req: Request): Promise<Response> => {
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
-  const actualPrompt = `What are redflag in this term and conditions: ${prompt}`;
+  const actualPrompt = ` act as an expert drafter,I would like you to review some terms and conditions as an expert drafter. I will provide you with the terms and conditions, and I need you to identify any significant issues within them. If you find a critical issue, please highlight it by putting [start] before and [end] after the problematic text, with a maximum of six words in between. For example, if you find a critical privacy issue that says "This platform will share your data without consent," you should highlight it like this: "Privacy issue: This platform will [start]share your data without consent[end]." Please provide your feedback in bullet points with a title and description format, like "Privacy issue: [start]This platform will share your data without consent[end]." Only highlight critical issues, and use [start] and [end] with the next two words.. Can you please review these terms and conditions for me?
+  terms and conditions are:  ${prompt}`;
 
   const cookieHeader = req.headers.get("cookie");
   const cookies: { [key: string]: string } = {};

@@ -21,12 +21,18 @@ type Props = {
   products: Stripe.Price[];
 };
 
+function replaceText(text: string): string {
+  return text
+    .replace(/\[start\]/g, '<span className="text-red">')
+    .replace(/\[end\]/g, "</span>");
+}
+
 const Dashboard = ({ products }: Props) => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState("");
-  const [generatedBios, setGeneratedBios] = useState<String>("");
+  const [generatedBios, setGeneratedBios] = useState<string>("");
 
   const [openModal, setOpenModal] = useState<{
     modelId: string;
@@ -198,7 +204,7 @@ const Dashboard = ({ products }: Props) => {
                             </h2>
                           </div>
                           <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto">
-                            <p>{generatedBios}</p>
+                            <p>{replaceText(generatedBios)}</p>
                           </div>
                         </>
                       )}
