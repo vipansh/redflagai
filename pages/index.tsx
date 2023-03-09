@@ -24,13 +24,13 @@ const Home = ({ products }: Props) => {
       <MetaData />
       <Navbar products={products} />
 
-      <section className="relative py-10 overflow-hidden bg-slate-50 sm:py-32 hero-pattern">
+      <section className="relative  overflow-hidden bg-slate-50 pt-4 sm:pt-16 hero-pattern">
         <Image
           alt=""
           {...backgroundImage}
           decoding="async"
           data-nimg="1"
-          className="absolute top-0 left-1/2 max-w-none translate-x-[-30%] -translate-y-1/4"
+          className="absolute top-0 left-1/2 max-w-none translate-x-[-30%] -translate-y-1/4 -z-10"
           loading="lazy"
           style={{ color: "transparent" }}
         />
@@ -71,8 +71,8 @@ const Home = ({ products }: Props) => {
             </div>
           </div>
         </div>
-        <Footer />
       </section>
+      <Footer />
     </>
   );
 };
