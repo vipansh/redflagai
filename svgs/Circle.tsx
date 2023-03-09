@@ -66,45 +66,4 @@ const CircleSvg = ({
   );
 };
 
-const SquareSvg = ({
-  className,
-  pathVariants = defaultPathVariants,
-}: SvgProps) => {
-  return (
-    <SvgWrapper className={className}>
-      <motion.path
-        d="M913 513c0 220.914-179.086 400-400 400S113 733.914 113 513s179.086-400 400-400 400 179.086 400 400Z"
-        stroke="#D4D4D4"
-        strokeOpacity="0.7"
-        variants={pathVariants}
-        initial="hidden"
-        animate="visible"
-        className="animate-spin-reverse-slower"
-      ></motion.path>
-      <motion.path
-        d="M913 513c0 220.914-179.086 400-400 400"
-        stroke="url(#2z1FJnxr5eIZ3o3QMfiwb-gradient-2)"
-        strokeLinecap="round"
-        variants={pathVariants}
-        initial="hidden"
-        animate="visible"
-        className="animate-spin-reverse-slower"
-      ></motion.path>
-      <defs>
-        <linearGradient
-          id="2z1FJnxr5eIZ3o3QMfiwb-gradient-2"
-          x1="913"
-          y1="513"
-          x2="913"
-          y2="913"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stop-color="#06b6d4"></stop>
-          <stop offset="1" stop-color="#06b6d4" stop-opacity="0"></stop>
-        </linearGradient>
-      </defs>
-    </SvgWrapper>
-  );
-};
-
-export { CircleSvg, SquareSvg };
+export { CircleSvg };

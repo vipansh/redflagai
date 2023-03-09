@@ -2,6 +2,6 @@ import MoneySvg from "./Money";
 import FlagSvg from "./Flag";
 import FireSvg from "./Fire";
 import CrossSvg from "./Cross";
-import { CircleSvg, SquareSvg } from "./Circle";
+import { CircleSvg, } from "./Circle";
 
-export { MoneySvg, FlagSvg, FireSvg, CrossSvg, CircleSvg, SquareSvg };
+export { MoneySvg, FlagSvg, FireSvg, CrossSvg, CircleSvg, };

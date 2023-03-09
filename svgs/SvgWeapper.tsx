@@ -19,7 +19,7 @@ const SvgWrapper: React.FC<SvgWrapperProps> = ({
       stroke="currentColor"
       initial="hidden"
       animate="visible"
-      className={classNames("sm:w-12 sm:h-12 w-8 h-8", className)}
+      className={classNames(className)}
     >
       {svgProps.children}
     </motion.svg>
