@@ -186,7 +186,7 @@ const Home = ({ products }: Props) => {
           <div className="max-w-xl mb-10 ml-auto mr-auto bg-top bg-cover md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
             <div className="max-w-2xl mb-6 ml-auto mr-auto font-sans tracking-tight text-gray-900 bg-top bg-cover sm:text-4xl md:mx-auto">
               <p className="inline max-w-lg font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-                Hello there
+                Meet the developer behind this project
               </p>
             </div>
             <p className="text-base text-gray-700 md:text-lg">
