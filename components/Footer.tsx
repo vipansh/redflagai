@@ -37,6 +37,7 @@ export default function Footer() {
           </nav>
 
           <ul className="flex justify-center gap-6 mt-8 sm:mt-0 lg:justify-end">
+            Built with care by ͢
             <li>
               <a
                 href="https://www.instagram.com/vipansh_thakur/"
@@ -59,7 +60,6 @@ export default function Footer() {
                 </svg>
               </a>
             </li>
-
             <li>
               <a
                 href="https://twitter.com/VipanshThakur"
@@ -78,7 +78,6 @@ export default function Footer() {
                 </svg>
               </a>
             </li>
-
             <li>
               <a
                 href="https://github.com/vipansh"
