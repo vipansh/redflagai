@@ -38,7 +38,6 @@ export async function OpenAIStream(payload: string) {
       ],
     }),
   });
-  console.log({ res });
   const stream = new ReadableStream({
     async start(controller) {
       // callback
@@ -53,7 +52,6 @@ export async function OpenAIStream(payload: string) {
           try {
             const json = JSON.parse(data);
             const text = json.choices[0].delta.content;
-            console.log(json, text);
             if (counter < 2 && text && (text.match(/\n/) || []).length) {
               // this is a prefix character (i.e., "\n\n"), do nothing
               return;
@@ -61,7 +59,6 @@ export async function OpenAIStream(payload: string) {
             const queue = encoder.encode(text);
             controller.enqueue(queue);
             counter++;
-            console.log({ text });
           } catch (e) {
             // maybe parse error
             controller.error(e);
@@ -79,6 +76,5 @@ export async function OpenAIStream(payload: string) {
       }
     },
   });
-  console.log({ stream });
   return stream;
 }
