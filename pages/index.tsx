@@ -12,6 +12,8 @@ import redglagAppImage from "public/redflagApp.png";
 import { motion } from "framer-motion";
 import backgroundImage from "public/background.jpg";
 import TextRedflagAI from "../components/TextRedflagAI";
+import { CircleSvg, FireSvg } from "../svgs";
+import Link from "next/link";
 interface Props {
   products: Stripe.Price[];
 }
@@ -24,52 +26,38 @@ const Home = ({ products }: Props) => {
       <MetaData />
       <Navbar products={products} />
 
-      <section className="relative  overflow-hidden bg-slate-50 pt-4 sm:pt-16 hero-pattern">
-        <Image
-          alt=""
-          {...backgroundImage}
-          decoding="async"
-          data-nimg="1"
-          className="absolute top-0 left-1/2 max-w-none translate-x-[-30%] -translate-y-1/4 -z-10"
-          loading="lazy"
-          style={{ color: "transparent" }}
-        />
+      <section
+        className="relative pt-10 flex flex-col items-center justify-center md:px-8"
+        style={{ height: "80vh" }}
+      >
+        <CircleSvg className="absolute inset-0 h-full w-full  top-10" />
+        <CircleSvg className="absolute inset-0 h-full w-full " />
 
-        <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
-          <div className="flex flex-wrap items-start sm:-mx-3 justify-start">
-            <div className="w-full md:w-1/2 md:px-3">
-              <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
-                <motion.h1
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: -4 }}
-                  transition={{ duration: 1 }}
-                  className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left"
-                >
-                  Revolutionize your legal document review process with -
-                  <TextRedflagAI />
-                </motion.h1>
-                <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
-                  the AI-powered tool that detects red flags in terms and
-                  conditions!
-                </p>
-                {!loading && (
-                  <div className="relative flex flex-col sm:flex-row sm:space-x-4 ">
-                    <SignInWithGoogleButton />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 relative">
-              <motion.img
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 4 }}
-                transition={{ duration: 1 }}
-                className=" absolute top-0 left-0 object-cover object-left-top"
-                alt="redflag AI"
-                {...redglagAppImage}
-              />
-            </div>
-          </div>
+        <div className="relative flex flex-col items-center justify-center mt-10">
+          <Link
+            href={"/"}
+            className="flex space-x-2 items-center justify-center"
+          >
+            <FireSvg className="block h-8 w-auto" />
+            <TextRedflagAI />
+          </Link>
+          <h1 className="text-4xl md:text-7xl font-bold mb-14 relative text-center text-zinc-700">
+            Revolutionize your legal document review process with -
+            <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-pink-500 z-10">
+              <TextRedflagAI />
+            </span>
+          </h1>
+          <h2 className="relative font-regular text-base text-zinc-500 tracking-wide mb-20 text-center max-w-3xl mx-auto antialiased">
+            RedflagAi is an advanced tool powered by artificial intelligence
+            that helps identify potential red flags and risks in terms and
+            conditions. It makes it easier for individuals and businesses to
+            stay informed and make informed decisions when entering into
+            contracts or agreements.
+          </h2>
+        </div>
+
+        <div className="flex flex-wrap justify-center">
+          <SignInWithGoogleButton />
         </div>
       </section>
       <Footer />

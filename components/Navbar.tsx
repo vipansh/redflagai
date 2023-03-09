@@ -10,7 +10,7 @@ import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import TextRedflagAI from "./TextRedflagAI";
 
 type Props = {
-  products: Stripe.Price[];
+  products?: Stripe.Price[];
 };
 
 export default function Navbar({ products }: Props) {
