@@ -41,9 +41,11 @@ const WhatAmISolving = (props: Props) => {
         />
         <div className="relative pt-10 flex flex-col items-center justify-center md:px-8">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <h2 className="text-2xl font-bold mb-4">What are we solving</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              What am I trying to solve
+            </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              With Redflag AI, we're solving the problem of legal compliance in
+              With Redflag AI, I am solving the problem of legal compliance in
               project documentation. Often, it can be difficult to ensure that
               your terms and conditions are up-to-date and legally sound,
               especially as laws and regulations change over time. Redflag AI
@@ -68,8 +70,8 @@ const WhatAmISolving = (props: Props) => {
               <dl className="grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
                 {features.map((feature, index) => (
                   <div key={feature.name} className="relative px-1 mx-1">
-                    <div className="text-base font-semibold text-gray-900 flex space-x-2">
-                      <div className="flex h-10 w-10 items-center justify-center">
+                    <div className="text-base font-semibold text-gray-900 flex space-x-2 items-center justify-start">
+                      <div className="flex h-10 w-10 items-center justify-center ">
                         {index === 0 && "1️⃣"}
                         {index === 1 && "2️⃣"}
                         {index === 2 && "3️⃣"}

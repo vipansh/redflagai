@@ -9,7 +9,7 @@ type Props = {};
 const HeroSection = (props: Props) => {
   return (
     <section
-      className="relative pt-10 flex flex-col items-center justify-center md:px-8"
+      className=" relative w-full px-8 pt-16 pb-16 ml-auto mr-auto bg-top bg-cover sm:max-w-xl md:max-w-full md:px-24 lg:px-8 lg:py-24 lg:pb-32 "
       style={{ height: "80vh" }}
     >
       <CircleSvg
@@ -20,8 +20,7 @@ const HeroSection = (props: Props) => {
 
       <div className="relative flex flex-col items-center justify-center mt-10">
         <Link href={"/"} className="flex space-x-2 items-center justify-center">
-          <FireSvg className="block h-8 w-auto" />
-          <TextRedflagAI />
+          <FireSvg className="block h-16 w-16" />
         </Link>
         <h1 className="text-4xl md:text-7xl font-bold mb-14 relative text-center text-zinc-700">
           Revolutionize your legal document review process with -
@@ -29,7 +28,6 @@ const HeroSection = (props: Props) => {
             href={"/"}
             className="flex space-x-2 items-center justify-center m-1"
           >
-            <FireSvg className="block h-16 w-16" />
             <TextRedflagAI />
           </Link>
         </h1>
