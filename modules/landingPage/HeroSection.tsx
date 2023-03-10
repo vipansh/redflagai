@@ -16,7 +16,7 @@ const HeroSection = (props: Props) => {
         className="absolute inset-0 h-full w-full  top-10"
         clockWise={true}
       />
-      <CircleSvg className="absolute inset-5 h-full w-full " />
+      <CircleSvg className="absolute inset-0 h-full w-full " />
 
       <div className="relative flex flex-col items-center justify-center mt-10">
         <Link href={"/"} className="flex space-x-2 items-center justify-center">
