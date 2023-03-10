@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import Stripe from "stripe";
 import { classNames } from "../utils/classNames";
 import { CrossSvg } from "../svgs";
+import { Product } from "../types/paddle";
+import { useUser } from "../context/UserContext";
+import { PaddleLoader } from "./PaddleLoader";
+import Script from "next/script";
 
 interface PricingTabelProps {
-  products?: Stripe.Price[];
+  products?: Product[];
   onClose: () => void;
   heading?: string;
 }
@@ -29,35 +32,41 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
   onClose,
   heading,
 }) => {
-  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+  const onUpgradeClick = (id: number, name: string) => {
+    // if (!isLoggedIn) {
+    //   router.push("#login?pricing");
+    //   return;
+    // }
 
-  const handleSubmit = async (id: string) => {
-    setLoading(true);
+    const [amount] = name.split(" ");
 
-    try {
-      const response = await axios(`/api/checkout/${id}`, {
-        params: {
-          base_url:
-            `${process?.env?.NEXT_PUBLIC_VERCEL_UR}/dashboard/check` ||
-            "https://redflagai.vercel.app/dashboard/check/",
-        },
-      });
-      const { data } = response;
-      console.log(data);
-      if (data && data.stripeSession && data.stripeSession.url) {
-        window.location.href = data.stripeSession.url;
-      }
-    } catch (error) {
-      console.log(error);
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
+    const passthrough = {
+      userId: user.id,
+    };
+    setIsLoading(true);
+    window.onPaddleSuccess = function () {
+      window.location.href = "/dashboard/check?success=true";
+    };
+    window.onPaddleClose = function () {
+      setIsLoading(false);
+    };
+    Paddle.Checkout.open({
+      product: Number(id),
+      email: user.email,
+      disableLogout: true,
+      passthrough: JSON.stringify(passthrough),
+      closeCallback: "onPaddleClose",
+      successCallback: "onPaddleSuccess",
+      customData: JSON.stringify({ number_of_token: amount }),
+    });
   };
-  console.log({ products });
 
   return (
     <>
+      <PaddleLoader />
+      <Script />
       <motion.div
         className="absolute cursor-pointer -top-1 -right-1  p-1 "
         onClick={onClose}
@@ -85,8 +94,6 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
         </p>
         <div className="grid max-w-md gap-10 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto h-auto overflow-y-auto p-4">
           {products?.map((product, index) => {
-            const priceInCents = product?.unit_amount ?? 0;
-            const priceInRupee = priceInCents / 100;
             const position = getPosition(index);
             return (
               <motion.div
@@ -99,33 +106,34 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
                   " relative block overflow-hidden flex-grow-1 border rounded-md "
                 )}
               >
-                <form action={`/api/checkout/${product.id}`} method="POST">
-                  <div className="relative border border-gray-100 bg-white p-6">
-                    {index === 1 ? (
-                      <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
-                        Popular{" "}
-                      </span>
-                    ) : (
-                      <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
-                    )}
-                    <h3 className="mt-4 text-lg font-medium text-gray-900">
-                      Buy {product?.transform_quantity?.divide_by} tokens
-                    </h3>
+                <div className="relative border border-gray-100 bg-white p-6">
+                  {index === 1 ? (
+                    <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
+                      Popular{" "}
+                    </span>
+                  ) : (
+                    <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
+                  )}
+                  <h3 className="mt-4 text-lg font-medium text-gray-900">
+                    Buy {product?.name}
+                  </h3>
 
-                    <p className="mt-1.5 text-sm text-gray-700 py-3">
-                      {product?.metadata?.para}
-                    </p>
+                  <p className="mt-1.5 text-sm text-gray-700 py-3">
+                    {/* {product?.metadata?.para} */}
+                  </p>
 
-                    <motion.button
-                      type="submit"
-                      disabled={loading}
-                      className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      Buy for Rs. {priceInRupee}/-
-                    </motion.button>
-                  </div>
-                </form>
+                  <motion.button
+                    type="submit"
+                    disabled={isLoading}
+                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => {
+                      onUpgradeClick(product.id, product.name);
+                    }}
+                  >
+                    Buy for Rs. {product.base_price}/-
+                  </motion.button>
+                </div>
               </motion.div>
             );
           })}

@@ -24,8 +24,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     .from("profiles")
                     .update({
                         no_of_tokens:
-                            userData?.no_of_tokens +
-                            custom_data.number_of_token
+                            Number(userData?.no_of_tokens) +
+                            Number(custom_data.number_of_token)
                     })
                     .eq("email", event.email)
             }

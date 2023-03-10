@@ -1,11 +1,11 @@
 import React from "react";
-import Stripe from "stripe";
 import { ActionAlert, BuyTokenModal } from "../../components";
+import { Product } from "../../types/paddle";
 
 type Props = {
   showAlertId: string;
   closeAlert: () => void;
-  products?: Stripe.Price[];
+  products?: Product[];
   extraData?: any;
   generateBio: () => Promise<void>;
 };

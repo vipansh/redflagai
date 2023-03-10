@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Stripe from "stripe";
+import React from "react";
 import Modal from "./Modal";
 import { PricingTabel } from ".";
+import { Product } from "../types/paddle";
 
 interface BuyTokenModalProps {
-  products?: Stripe.Price[];
+  products?: Product[];
   isOpen: boolean;
   onClose: () => void;
   heading?: string;
