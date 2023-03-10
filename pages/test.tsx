@@ -1,6 +1,6 @@
 import Script from "next/script";
 import { useState } from "react";
-import { MetaData } from "../components";
+import { MetaData, Navbar } from "../components";
 import { PaddleLoader } from "../components/PaddleLoader";
 import { useUser } from "../context/UserContext";
 
@@ -30,8 +30,7 @@ export default function Payment() {
     window.onPaddleClose = function () {
       setIsLoading(false);
     };
-
-    ({
+    Paddle.Checkout.open({
       product: Number(process.env.NEXT_PUBLIC_PADDLE_100_PRODUCT_ID),
       email: user.email,
       disableLogout: true,
@@ -42,19 +41,22 @@ export default function Payment() {
   };
 
   return (
-    <div className="m-auto max-w-sm h-screen items-center flex space-x-3">
+    <>
       <MetaData />
       <PaddleLoader />
       <Script />
-      <h1>Payment Page</h1>
+      <Navbar />
+      <div className="m-auto max-w-sm h-screen items-center flex space-x-3">
+        <h1>Payment Page</h1>
 
-      <button
-        className="paddle_button text-blue-300"
-        data-product="46831"
-        onClick={onUpgradeClick}
-      >
-        {isLoading ? "isLoading" : "Buy Now!"}
-      </button>
-    </div>
+        <button
+          className="paddle_button text-blue-300"
+          data-product="46831"
+          onClick={onUpgradeClick}
+        >
+          {isLoading ? "isLoading" : "Buy Now!"}
+        </button>
+      </div>
+    </>
   );
 }
