@@ -24,11 +24,11 @@ const SignInWithGoogleButton = (props: Props) => {
   if (user) {
     return (
       <Link
-        className="flex space-x-2 border-2 border-blue-500 rounded-md items-center shadow-md"
+        className="flex  border-2 border-blue-500 rounded-md items-center shadow-md space-x-2"
         href="/dashboard/check"
       >
         <motion.div
-          className="flex px-6 py-2"
+          className="flex px-6 py-2 space-x-2 items-center"
           variants={buttonVariants}
           initial="initial"
           animate="animate"

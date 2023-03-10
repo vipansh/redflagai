@@ -18,8 +18,9 @@ export default function Navbar({ products }: Props) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   console.log({ user });
   if (loading) return null;
+
   return (
-    <Disclosure as="nav">
+    <header aria-label="Site Header" className="shadow-sm">
       <BuyTokenModal
         isOpen={showBuyModal}
         onClose={() => {
@@ -28,38 +29,38 @@ export default function Navbar({ products }: Props) {
         products={products}
         heading={"Get the best value"}
       />
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              <Link
-                href={"/"}
-                className="flex space-x-2 items-center justify-center"
-              >
-                <FireSvg className="block h-8 w-auto" />
-                <TextRedflagAI />
-              </Link>
-              {user && (
-                <>
-                  {" "}
-                  <div
-                    className={classNames(
-                      "block px-6 py-2 text-sm text-gray-700 cursor-pointer"
-                    )}
-                  >
-                    No: of tokens: {user?.no_of_tokens}
-                  </div>
-                  <button
-                    onClick={() => {
-                      setShowBuyModal(true);
-                    }}
-                  >
-                    Buy Token
-                  </button>
-                </>
-              )}
-            </div>
+      <div className="mx-auto max-w-screen-xl p-4">
+        <div className="flex items-center justify-between gap-4 lg:gap-10">
+          <div className="flex lg:w-0 lg:flex-1">
+            <Link
+              href={"/"}
+              className="flex space-x-2 items-center justify-center"
+            >
+              <FireSvg className="block h-8 w-auto" />
+              <TextRedflagAI />
+            </Link>
           </div>
+
+          <nav
+            aria-label="Site Nav"
+            className="hidden gap-8 text-sm font-medium md:flex"
+          >
+            {user && (
+              <>
+                <span className="text-gray-500">
+                  No: of tokens: {user?.no_of_tokens}
+                </span>
+                <button
+                  className="text-gray-500"
+                  onClick={() => {
+                    setShowBuyModal(true);
+                  }}
+                >
+                  Buy Token
+                </button>
+              </>
+            )}
+          </nav>
 
           {user ? (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -150,6 +151,6 @@ export default function Navbar({ products }: Props) {
           )}
         </div>
       </div>
-    </Disclosure>
+    </header>
   );
 }
