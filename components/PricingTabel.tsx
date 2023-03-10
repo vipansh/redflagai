@@ -14,6 +14,13 @@ interface PricingTabelProps {
   heading?: string;
 }
 
+declare global {
+  interface Window {
+    onPaddleSuccess: () => void;
+    onPaddleClose: () => void;
+  }
+}
+
 const getPosition = (index: number) => {
   switch (index) {
     case 0:
