@@ -18,8 +18,8 @@ const Home = ({ products }: Props) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0,
+    x: -100,
+    y: -100,
   });
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Home = ({ products }: Props) => {
         onClose={() => setShowFeedbackModal(false)}
       />
       <Navbar products={products} />
-      <main className=" overflow-hidden px-4 ">
+      <main className=" overflow-hidden">
         <HeroSection />
         <WhatAmISolving />
         <MeetTheDeveloper />

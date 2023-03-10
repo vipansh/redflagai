@@ -1,7 +1,7 @@
 import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment } from "react";
-import { Footer, MetaData } from "../components";
+import { Footer, MetaData, Navbar } from "../components";
 
 type Props = {};
 
@@ -12,6 +12,7 @@ const Terms = (props: Props) => {
         title="RedFlag AI Pricing "
         description="RedFlag AI's advanced algorithms can help identify areas in your pricing strategy that could be optimized. Don't leave money on the table. Try RedFlag AI today and maximize your profits"
       />
+      <Navbar />
       <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 py-16 text-center">
@@ -84,8 +85,8 @@ const Terms = (props: Props) => {
           <h2 className="text-xl font-bold mb-2">Governing Law</h2>
           <p className="mb-4">
             These terms will be governed by and construed in accordance with the
-            laws of India, without giving effect to any principles
-            of conflicts of law.
+            laws of India, without giving effect to any principles of conflicts
+            of law.
           </p>
 
           <h1 className="text-3xl font-bold mb-4">REFUND POLICY</h1>

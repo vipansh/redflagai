@@ -13,6 +13,7 @@ const pricing = ({ products }: Props) => {
         title="RedFlag AI Pricing "
         description="RedFlag AI's advanced algorithms can help identify areas in your pricing strategy that could be optimized. Don't leave money on the table. Try RedFlag AI today and maximize your profits"
       />
+
       <div className="m-auto h-screen my-auto">
         <Navbar products={products} />
         <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 py-16 text-center">

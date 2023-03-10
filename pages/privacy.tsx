@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Footer, MetaData } from "../components";
+import { Footer, MetaData, Navbar } from "../components";
 
 const Privacy = () => {
   return (
@@ -8,6 +8,7 @@ const Privacy = () => {
         title="RedflagAI Privacy Policy"
         description="Don't risk legal trouble. RedFlag AI's advanced machine learning algorithms help identify problematic areas in your terms of use. Protect your business and stay compliant with RedFlag AI."
       />
+       <Navbar />
       <div className="bg-white py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 py-16 text-center">
