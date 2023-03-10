@@ -12,7 +12,10 @@ const HeroSection = (props: Props) => {
       className="relative pt-10 flex flex-col items-center justify-center md:px-8"
       style={{ height: "80vh" }}
     >
-      <CircleSvg className="absolute inset-0 h-full w-full  top-10" />
+      <CircleSvg
+        className="absolute inset-0 h-full w-full  top-10"
+        clockWise={true}
+      />
       <CircleSvg className="absolute inset-5 h-full w-full " />
 
       <div className="relative flex flex-col items-center justify-center mt-10">
