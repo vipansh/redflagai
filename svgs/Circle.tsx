@@ -21,17 +21,22 @@ const defaultPathVariants = {
   },
 };
 
+interface CircleSvgProp extends SvgProps {
+  clockWise?: boolean;
+}
+
 const CircleSvg = ({
   className,
+  clockWise = false,
   pathVariants = defaultPathVariants,
-}: SvgProps) => {
+}: CircleSvgProp) => {
   return (
     <motion.svg
       viewBox="0 0 1026 1026"
       fill="none"
       aria-hidden="true"
       className={className}
-      animate={{ rotate: 360 }}
+      animate={{ rotate: clockWise ? 360 : -360 }}
       transition={{
         repeat: Infinity,
         duration: 10,

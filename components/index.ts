@@ -15,6 +15,8 @@ import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import MetaData from "./MetaData";
 import PricingTabel from "./PricingTabel";
 import TextRedflagAI from "./TextRedflagAI";
+import FeedbackModal from "./FeedbackModal"
+
 
 export {
   Footer,
@@ -33,4 +35,5 @@ export {
   SignInWithGoogleButton,
   MetaData,
   PricingTabel,
+  FeedbackModal
 };

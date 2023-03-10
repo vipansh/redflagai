@@ -37,7 +37,7 @@ const SignInWithGoogleButton = (props: Props) => {
 
   return (
     <motion.button
-      className=" flex space-x-3 shadow-md px-8 py-3  border-2 border-blue-500 rounded-md"
+      className=" flex space-x-3 shadow-md px-3 py-1  md:px-8 md:py-3  border-2 border-blue-500 rounded-md"
       type="button"
       onClick={login}
       whileHover={{ scale: 1.05 }}
