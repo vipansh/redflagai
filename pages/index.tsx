@@ -18,8 +18,8 @@ const Home = ({ products }: Props) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0,
+    x: -100,
+    y: -100,
   });
 
   useEffect(() => {
@@ -63,8 +63,6 @@ const Home = ({ products }: Props) => {
         variants={variants}
         animate="default"
       ></motion.div>
-
-      
     </>
   );
 };

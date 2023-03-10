@@ -39,10 +39,10 @@ const HeroSection = (props: Props) => {
           It makes it easier for individuals and businesses to stay informed and
           make informed decisions when entering into contracts or agreements.
         </h2>
-      </div>
 
-      <div className="flex flex-wrap justify-center">
-        <SignInWithGoogleButton />
+        <div className="flex flex-wrap justify-center">
+          <SignInWithGoogleButton />
+        </div>
       </div>
     </section>
   );
