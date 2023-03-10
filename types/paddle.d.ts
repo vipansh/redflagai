@@ -115,3 +115,30 @@ export declare global {
         }
     }
 }
+
+
+
+export interface Product {
+    id: number;
+    name: string;
+    description: string;
+    base_price: number;
+    sale_price: null;
+    currency: string;
+    screenshots: any[];
+    icon: string;
+}
+
+
+export interface Response {
+    total: number;
+    count: number;
+    products: Product[];
+}
+
+
+
+export interface ProductRes {
+    success: boolean;
+    response: Response;
+}

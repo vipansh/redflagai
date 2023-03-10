@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 import Stripe from "stripe";
 import { Footer, MetaData, Navbar, PricingTabel } from "../components";
+import axios from "axios";
+import { ProductRes } from "../types/paddle";
 
 type Props = {
-  products: Stripe.Price[];
+  products: ProductRes;
 };
 
 const pricing = ({ products }: Props) => {
@@ -15,13 +17,13 @@ const pricing = ({ products }: Props) => {
       />
 
       <div className="m-auto h-screen my-auto">
-        <Navbar products={products} />
+        <Navbar products={products.response.products} />
         <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 py-16 text-center">
           Optimize Your Pricing Strategy with RedFlag AI
         </h1>
         <PricingTabel
           onClose={() => {}}
-          products={products}
+          products={products.response.products}
           heading={"Our plans for your strategies"}
         />
         <Footer />
@@ -33,20 +35,35 @@ const pricing = ({ products }: Props) => {
 export default pricing;
 
 export const getStaticProps = async () => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2022-11-15",
-  });
-
-  const products = await stripe.prices.list();
-  const productList = products.data.sort((a, b) => {
-    const aDivideBy = a.transform_quantity?.divide_by ?? 1;
-    const bDivideBy = b.transform_quantity?.divide_by ?? 1;
-    return aDivideBy - bDivideBy;
-  });
-
-  return {
-    props: {
-      products: productList,
+  const options = {
+    method: "POST",
+    url: "https://sandbox-vendors.paddle.com/api/2.0/product/get_products",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    data: {
+      vendor_id: Number(process.env.NEXT_PUBLIC_PADDLE_SANDBOX),
+      vendor_auth_code: process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE,
+      country: "INR",
     },
   };
+  console.log(
+    "env",
+    process.env.NEXT_PUBLIC_PADDLE_SANDBOX,
+    process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE
+  );
+  try {
+    const response = await axios.request(options);
+
+    return {
+      props: {
+        products: response.data,
+      },
+    };
+  } catch (error) {
+    console.error({ error, d: "r" });
+    return {
+      props: {
+        products: [],
+      },
+    };
+  }
 };

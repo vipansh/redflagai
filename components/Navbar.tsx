@@ -4,13 +4,13 @@ import { classNames } from "../utils/classNames";
 import { FireSvg } from "../svgs";
 import { useUser } from "../context/UserContext";
 import BuyTokenModal from "./BuyTokenModal";
-import Stripe from "stripe";
 import Link from "next/link";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import TextRedflagAI from "./TextRedflagAI";
+import { Product } from "../types/paddle";
 
 type Props = {
-  products?: Stripe.Price[];
+  products?: Product[];
 };
 
 export default function Navbar({ products }: Props) {
