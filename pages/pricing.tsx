@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Stripe from "stripe";
 import { Footer, MetaData, Navbar, PricingTabel } from "../components";
 import axios from "axios";
 import { ProductRes } from "../types/paddle";
