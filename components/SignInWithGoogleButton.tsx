@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "../context/UserContext";
 import { motion } from "framer-motion";
+import Loading from "./Loading";
 
 type Props = {};
 
@@ -13,6 +14,12 @@ const buttonVariants = {
 
 const SignInWithGoogleButton = (props: Props) => {
   const { login, user, loading } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handelLogin = async () => {
+    setIsLoading(true);
+    await login();
+  };
   if (loading) return null;
   if (user) {
     return (
@@ -27,7 +34,7 @@ const SignInWithGoogleButton = (props: Props) => {
           animate="animate"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 1 }}
         >
           <Image
             width={18}
@@ -51,26 +58,29 @@ const SignInWithGoogleButton = (props: Props) => {
   }
 
   return (
-    <motion.button
-      className=" flex space-x-3 shadow-md px-4 py-2  md:px-8 md:py-3  border-2 border-blue-500 rounded-md"
-      type="button"
-      onClick={login}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ duration: 2 }}
-      variants={buttonVariants}
-      initial="initial"
-      animate="animate"
-    >
-      <Image
-        width={18}
-        height={18}
-        className="h-6 w-6"
-        alt="googl_icon"
-        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-      />{" "}
-      <div>Sign in with Google</div>
-    </motion.button>
+    <>
+      {isLoading && <Loading />}
+      <motion.button
+        className=" flex space-x-3 shadow-md px-4 py-2  md:px-8 md:py-3  border-2 border-blue-500 rounded-md"
+        type="button"
+        onClick={handelLogin}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 1 }}
+        variants={buttonVariants}
+        initial="initial"
+        animate="animate"
+      >
+        <Image
+          width={18}
+          height={18}
+          className="h-6 w-6"
+          alt="googl_icon"
+          src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+        />{" "}
+        <div>Sign in with Google</div>
+      </motion.button>
+    </>
   );
 };
 

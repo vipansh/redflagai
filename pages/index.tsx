@@ -1,9 +1,17 @@
 import { useUser } from "../context/UserContext";
-import { Navbar, MetaData, Footer, FeedbackModal } from "../components";
+import {
+  Navbar,
+  MetaData,
+  Footer,
+  FeedbackModal,
+  PricingTabel,
+} from "../components";
 import { useEffect, useState } from "react";
 import {
+  CommingSoonThings,
   HeroSection,
   MeetTheDeveloper,
+  Pricing,
   WhatAmISolving,
 } from "../modules/landingPage";
 import { motion } from "framer-motion";
@@ -56,6 +64,8 @@ const Home = ({ products }: Props) => {
       <main className=" overflow-hidden">
         <HeroSection />
         <WhatAmISolving />
+        <CommingSoonThings />
+        <Pricing />
         <MeetTheDeveloper />
         <Footer />
       </main>

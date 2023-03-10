@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import ReactConfetti from "react-confetti";
 import { useRouter } from "next/router";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 type Props = {};
 const duration = 4.5;

@@ -10,7 +10,7 @@ const HeroSection = (props: Props) => {
   return (
     <section
       className=" relative w-full px-8 pt-16 pb-16 ml-auto mr-auto bg-top bg-cover sm:max-w-xl md:max-w-full md:px-24 lg:px-8 lg:py-24 lg:pb-32 "
-      style={{ height: "80vh" }}
+      style={{ minHeight: "80vh" }}
     >
       <CircleSvg
         className="absolute inset-0 h-full w-full  top-10"
@@ -38,8 +38,14 @@ const HeroSection = (props: Props) => {
           make informed decisions when entering into contracts or agreements.
         </h2>
 
-        <div className="flex flex-wrap justify-center">
-          <SignInWithGoogleButton />
+        <div className="flex flex-col space-y-3">
+          <div className="flex flex-wrap justify-center">
+            <SignInWithGoogleButton />
+          </div>
+          <h1 className="mt-4 text-3xl font-semibold text-center ">
+            New users, sign up now for <TextRedflagAI /> and get 3000 tokens for
+            free!
+          </h1>
         </div>
       </div>
     </section>

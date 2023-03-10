@@ -1,6 +1,8 @@
 import HeroSection from "./HeroSection"
 import MeetTheDeveloper from "./MeetTheDeveloper";
 import WhatAmISolving from "./WhatAmISolving"
+import CommingSoonThings from "./CommingSoonThings";
+import Pricing from "./Pricing"
 
 
 
@@ -8,6 +10,4 @@ import WhatAmISolving from "./WhatAmISolving"
 
 
 
-
-
-export { HeroSection, MeetTheDeveloper, WhatAmISolving }
+export { HeroSection, MeetTheDeveloper, WhatAmISolving, CommingSoonThings, Pricing }
