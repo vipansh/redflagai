@@ -8,9 +8,17 @@ export function PaddleLoader() {
   return (
     <Script
       key="init-paddle"
-      onLoad={(e) => {
-        Paddle.Environment.set("sandbox");
-        Paddle.Setup({ vendor: process.env.NEXT_PUBLIC_VENDOR_ID });
+      onLoad={() => {
+        if (true) {
+          Paddle.Environment.set("sandbox");
+          Paddle.Setup({
+            vendor: Number(process.env.NEXT_PUBLIC_PADDLE_SANDBOX),
+          });
+        } else {
+          Paddle.Setup({
+            vendor: Number(process.env.NEXT_PUBLIC_PADDLE_VENDOR_ID),
+          });
+        }
       }}
       src="https://cdn.paddle.com/paddle/paddle.js"
       //   onLoad={() => {
