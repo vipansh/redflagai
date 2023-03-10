@@ -52,7 +52,7 @@ const Home = ({ products }: Props) => {
         onClose={() => setShowFeedbackModal(false)}
       />
       <Navbar products={products} />
-      <main className=" overflow-hidden px-4 ">
+      <main className=" overflow-hidden">
         <HeroSection />
         <WhatAmISolving />
         <MeetTheDeveloper />
@@ -63,6 +63,8 @@ const Home = ({ products }: Props) => {
         variants={variants}
         animate="default"
       ></motion.div>
+
+      
     </>
   );
 };

@@ -12,11 +12,8 @@ const HeroSection = (props: Props) => {
       className="relative pt-10 flex flex-col items-center justify-center md:px-8"
       style={{ height: "80vh" }}
     >
-      <CircleSvg
-        className="absolute inset-0 h-full w-full  top-10"
-        clockWise={true}
-      />
-      <CircleSvg className="absolute inset-0 h-full w-full " />
+      <CircleSvg className="absolute inset-0 h-full w-full  top-10" />
+      <CircleSvg className="absolute inset-5 h-full w-full " />
 
       <div className="relative flex flex-col items-center justify-center mt-10">
         <Link href={"/"} className="flex space-x-2 items-center justify-center">
@@ -39,10 +36,10 @@ const HeroSection = (props: Props) => {
           It makes it easier for individuals and businesses to stay informed and
           make informed decisions when entering into contracts or agreements.
         </h2>
+      </div>
 
-        <div className="flex flex-wrap justify-center">
-          <SignInWithGoogleButton />
-        </div>
+      <div className="flex flex-wrap justify-center">
+        <SignInWithGoogleButton />
       </div>
     </section>
   );
