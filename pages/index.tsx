@@ -1,78 +1,68 @@
-import Head from "next/head";
 import { useUser } from "../context/UserContext";
 import Stripe from "stripe";
+import { Navbar, MetaData, Footer, FeedbackModal } from "../components";
+import { useEffect, useState } from "react";
 import {
-  Navbar,
-  SignInWithGoogleButton,
-  MetaData,
-  Footer,
-} from "../components";
-import Image from "next/image";
-import redglagAppImage from "public/redflagApp.png";
+  HeroSection,
+  MeetTheDeveloper,
+  WhatAmISolving,
+} from "../modules/landingPage";
 import { motion } from "framer-motion";
-import backgroundImage from "public/background.jpg";
-import TextRedflagAI from "../components/TextRedflagAI";
+
 interface Props {
   products: Stripe.Price[];
 }
 
 const Home = ({ products }: Props) => {
   const { user, loading } = useUser();
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  useEffect(() => {
+    const mouseMove = (e: any) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", mouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", mouseMove);
+    };
+  }, []);
+
+  const variants = {
+    default: {
+      x: mousePosition.x,
+      y: mousePosition.y + 30,
+    },
+  };
 
   return (
     <>
       <MetaData />
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+      />
       <Navbar products={products} />
-
-      <section className="relative  overflow-hidden bg-slate-50 pt-4 sm:pt-16 hero-pattern">
-        <Image
-          alt=""
-          {...backgroundImage}
-          decoding="async"
-          data-nimg="1"
-          className="absolute top-0 left-1/2 max-w-none translate-x-[-30%] -translate-y-1/4 -z-10"
-          loading="lazy"
-          style={{ color: "transparent" }}
-        />
-
-        <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
-          <div className="flex flex-wrap items-start sm:-mx-3 justify-start">
-            <div className="w-full md:w-1/2 md:px-3">
-              <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
-                <motion.h1
-                  initial={{ rotate: 0 }}
-                  animate={{ rotate: -4 }}
-                  transition={{ duration: 1 }}
-                  className="my-4 text-3xl md:text-5xl  opacity-75 font-bold leading-tight text-center md:text-left"
-                >
-                  Revolutionize your legal document review process with -
-                  <TextRedflagAI />
-                </motion.h1>
-                <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
-                  the AI-powered tool that detects red flags in terms and
-                  conditions!
-                </p>
-                {!loading && (
-                  <div className="relative flex flex-col sm:flex-row sm:space-x-4 ">
-                    <SignInWithGoogleButton />
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 relative">
-              <motion.img
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 4 }}
-                transition={{ duration: 1 }}
-                className=" absolute top-0 left-0 object-cover object-left-top"
-                alt="redflag AI"
-                {...redglagAppImage}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <Footer />
+      <main className=" overflow-hidden px-4 ">
+        <HeroSection />
+        <WhatAmISolving />
+        <MeetTheDeveloper />
+        <Footer />
+      </main>
+      <motion.div
+        className="h-2 w-2 bg-black fixed inset-0 pointer-events-none rounded-full"
+        variants={variants}
+        animate="default"
+      ></motion.div>
     </>
   );
 };
