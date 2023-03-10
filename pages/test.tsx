@@ -25,7 +25,7 @@ export default function Payment() {
     };
     setIsLoading(true);
     window.onPaddleSuccess = function () {
-      window.location.href = "/purchase";
+      window.location.href = "/dashboard/check?success=true";
     };
     window.onPaddleClose = function () {
       setIsLoading(false);
@@ -37,6 +37,7 @@ export default function Payment() {
       passthrough: JSON.stringify(passthrough),
       closeCallback: "onPaddleClose",
       successCallback: "onPaddleSuccess",
+      customData: JSON.stringify({ number_of_token: 1000 }),
     });
   };
 
