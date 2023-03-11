@@ -132,14 +132,17 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
                   <motion.button
                     type="submit"
                     disabled={isLoading}
-                    className=" paddle-gross block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
+                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
                     whileTap={{ scale: 0.9 }}
                     onClick={() => {
                       onUpgradeClick(product.id, product.name);
                     }}
-                    data-product={product.id}
                   >
-                    Buy for Rs. {product.base_price}/-
+                    Buy for{" "}
+                    <span className=" paddle-gross" data-product={product.id}>
+                      {product.base_price}
+                    </span>
+                    /-
                   </motion.button>
                 </div>
               </motion.div>

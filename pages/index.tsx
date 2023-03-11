@@ -38,7 +38,7 @@ const Home = ({ products }: Props) => {
         <HeroSection />
         <WhatAmISolving />
         <CommingSoonThings />
-        <Pricing />
+        <Pricing products={products.response.products} />
         <MeetTheDeveloper />
         <Footer />
       </main>
