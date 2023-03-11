@@ -26,6 +26,11 @@ export const useUser = (): UserContextType => {
   return context;
 };
 
+const getURL = () => {
+  let url = `https://${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/check/`;
+  return url;
+};
+
 export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState<any | undefined>(null);
@@ -39,7 +44,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "/dashboard/check/",
+        redirectTo: getURL(),
       },
     });
   }
