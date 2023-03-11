@@ -4,14 +4,12 @@ const localStorageSet = (key: string, value: string): void => {
   if (!key || !value) return;
   const edValue = value;
   if (!edValue) return;
-  if (!window.localStorage) return;
+
   localStorage.setItem(key, edValue);
 };
 
 const localStorageGet = (key: string): string | undefined => {
   if (!key) return undefined;
-  if (!window.localStorage) return undefined;
-
   const savededValue = localStorage.getItem(key);
   if (!savededValue) return undefined;
   const value = savededValue;

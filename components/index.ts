@@ -17,6 +17,7 @@ import PricingTabel from "./PricingTabel";
 import TextRedflagAI from "./TextRedflagAI";
 import FeedbackModal from "./FeedbackModal"
 import Loading from "./Loading";
+import AnoucementModal from "./AnoucementModal"
 
 export {
   Footer,
@@ -35,5 +36,5 @@ export {
   SignInWithGoogleButton,
   MetaData,
   PricingTabel,
-  FeedbackModal, Loading
+  FeedbackModal, Loading, AnoucementModal, TextRedflagAI
 };
