@@ -14,6 +14,7 @@ import storage from "../../utils/storage";
 import { useUser } from "../../context/UserContext";
 import { ProductRes } from "../../types/paddle";
 import { Arrow } from "../../svgs";
+import countTokens from "../../utils/tokenCount";
 
 type Props = {
   products: ProductRes;
@@ -62,8 +63,8 @@ const Dashboard = ({ products }: Props) => {
   };
   useEffect(() => {
     const updateToke = async () => {
-      const tokenCounst = await getTokenCount(bio);
-      setTokenCount(tokenCounst.tokenCount);
+      const tokenCounst = countTokens(bio);
+      setTokenCount(tokenCounst);
     };
     updateToke();
   }, [bio]);
