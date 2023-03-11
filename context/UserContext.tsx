@@ -35,17 +35,11 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
     setUser(data);
   };
 
-  const getURL = () => {
-    let url = `https://${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/check/`;
-    return url;
-  };
-
   function login() {
-    console.log({ getURL: getURL() });
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: getURL(),
+        redirectTo: "/dashboard/check/",
       },
     });
   }
