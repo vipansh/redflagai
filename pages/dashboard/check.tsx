@@ -13,6 +13,7 @@ import { AllPopUps } from "../../modules";
 import storage from "../../utils/storage";
 import { useUser } from "../../context/UserContext";
 import { ProductRes } from "../../types/paddle";
+import { Arrow } from "../../svgs";
 
 type Props = {
   products: ProductRes;
@@ -20,10 +21,7 @@ type Props = {
 
 function replaceText(text: string): string {
   return text
-    .replace(
-      /\[start\]/g,
-      '<span class="text-lg bg-red-100 p-1 rounded ">'
-    )
+    .replace(/\[start\]/g, '<span class="text-lg bg-red-100 p-1 rounded ">')
     .replace(/\[end\]/g, "</span>");
 }
 
@@ -145,6 +143,14 @@ const Dashboard = ({ products }: Props) => {
     console.log(token);
   };
 
+  const dummyTerms = () => {
+    setBio(`User Data: By using our service, you agree to allow us to collect and store your data, including but not limited to your contacts, camera and microphone permissions, and access to your Google Drive. We reserve the right to share this data with third parties for industry and marketing purposes, but we will anonymize the data before sharing it. However, please note that even anonymized data can still reveal sensitive information about your behavior and preferences. We will take all necessary measures to protect your data, including implementing strong data encryption and security measures, but we cannot guarantee the security of your data against unauthorized access or disclosure. By agreeing to these terms and conditions, you acknowledge and accept the risks involved in using our service and sharing your data with us.
+
+    Limitation of Liability: In no event shall we be liable for any indirect, incidental, special, punitive, or consequential damages arising out of or in connection with your use of our service. Our total liability to you for any and all claims arising from your use of the service, regardless of the form of action, shall be limited to the amount paid by you to us, if any, for the service during the term of use.
+    
+    Intellectual Property: All intellectual property rights in the service, including but not limited to copyright, trademark, and patent rights, are owned by us or our licensors. You may not use, copy, reproduce, distribute, transmit, broadcast, display, sell, license, or otherwise exploit any content on the service for any other purposes without our prior written consent. You agree to indemnify and hold us harmless from any claim or demand, including attorneys' fees, arising out of your use of the service or any violation of these terms and conditions.`);
+  };
+
   return (
     <>
       <div className="bg-white relative">
@@ -162,9 +168,15 @@ const Dashboard = ({ products }: Props) => {
                 <hr className="my-10" />
 
                 <div className="w-full">
-                  <div className="flex mt-10 items-center space-x-3">
+                  <div className="flex mt-10 items-center space-x-3 justify-between flex-col md:flex-row">
                     <p className="text-left font-medium">
                       Copy and Paste terms and conditions.
+                    </p>
+                    <p
+                      className="text-left font-medium text-blue-500 cursor-pointer flex space-x-2 justify-start items-center"
+                      onClick={dummyTerms}
+                    >
+                      Get some dummy text <Arrow />
                     </p>
                   </div>
                   <div>
