@@ -207,7 +207,7 @@ const Dashboard = ({ products }: Props) => {
                         }`}
                       >
                         <span className="font-medium">
-                          Total token required: {tokenCount}
+                          Approx token required: {tokenCount}
                         </span>
                       </p>
                     )}
