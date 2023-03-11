@@ -20,7 +20,7 @@ const Pricing = (props: Props) => {
           </p>
 
           <h1 className="mt-4 text-3xl font-semibold text-center text-gray-800 capitalize lg:text-4xl ">
-            New users, sign up now for <TextRedflagAI /> and get 3000 tokens for
+            New users, sign up now for <TextRedflagAI /> and get 10,000 tokens for
             free!
           </h1>
 

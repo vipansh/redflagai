@@ -43,8 +43,8 @@ const HeroSection = (props: Props) => {
             <SignInWithGoogleButton />
           </div>
           <h1 className="mt-4 text-3xl font-semibold text-center ">
-            New users, sign up now for <TextRedflagAI /> and get 3000 tokens for
-            free!
+            New users, sign up now for <TextRedflagAI /> and get 10,000 tokens
+            for free!
           </h1>
         </div>
       </div>
