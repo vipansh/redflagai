@@ -226,7 +226,7 @@ const Dashboard = ({ products }: Props) => {
                             Here are your results
                           </h2>
                         </div>
-                        <div className="space-y-8 flex flex-col items-center justify-center  mx-auto">
+                        <div className="space-y-8 flex flex-col items-center justify-center  mx-auto leading-8">
                           <p
                             dangerouslySetInnerHTML={{
                               __html: replaceText(generatedBios),
