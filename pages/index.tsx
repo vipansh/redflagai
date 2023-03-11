@@ -26,33 +26,6 @@ const Home = ({ products }: Props) => {
   const { user, loading } = useUser();
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
-  const [mousePosition, setMousePosition] = useState({
-    x: -100,
-    y: -100,
-  });
-
-  useEffect(() => {
-    const mouseMove = (e: any) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", mouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", mouseMove);
-    };
-  }, []);
-
-  const variants = {
-    default: {
-      x: mousePosition.x,
-      y: mousePosition.y + 30,
-    },
-  };
-  console.log({ products: products.response.products });
   return (
     <>
       <MetaData />
@@ -69,11 +42,6 @@ const Home = ({ products }: Props) => {
         <MeetTheDeveloper />
         <Footer />
       </main>
-      <motion.div
-        className="h-2 w-2 bg-black fixed inset-0 pointer-events-none rounded-full"
-        variants={variants}
-        animate="default"
-      ></motion.div>
     </>
   );
 };
