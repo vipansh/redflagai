@@ -22,19 +22,10 @@ export default async function handler(
     });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY; // Your OpenAI API key
-  const apiUrl = "https://api.openai.com/v1/";
-  if (!apiKey) {
-    return res.status(500).json({
-      error: "apiKey  not found",
-      tokenCount: 0,
-      status: false,
-    });
-  }
 
   // Calculate the number of tokens required for the prompt
   try {
-    const tokenCount = await getTokens(actualPrompt, apiKey, apiUrl);
+    const tokenCount = await getTokens(actualPrompt);
 
     // Return the token count in the response
     res.send({ tokenCount: tokenCount.usage.total_tokens, status: true });
@@ -49,27 +40,20 @@ export default async function handler(
 
 export async function getTokens(
   prompt: string,
-  apiKey: string,
-  apiUrl: string
-) {
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      prompt: prompt,
-      max_tokens: 1,
-      temperature: 0,
-    }),
-  };
 
-  const response = await fetch(
-    `${apiUrl}engines/davinci-codex/completions`,
-    requestOptions
-  );
-  const data = await response.json();
-  const tokenData = { ...data, usage: { ...data.usage, total_tokens: data.usage.total_tokens * 3 } }
+) {
+
+  function countTokens(str: string): number {
+    const lengthInChars = str.trim().length;
+    const lengthInWords = str.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const numTokensPerChar = 0.25;
+    const numTokensPerWord = 1.33;
+    const estimatedNumTokens = lengthInChars * numTokensPerChar + lengthInWords * numTokensPerWord;
+    return Math.round(estimatedNumTokens);
+  }
+
+  const total = countTokens(prompt)
+
+  const tokenData = { usage: { total_tokens: total } }
   return tokenData;
 }

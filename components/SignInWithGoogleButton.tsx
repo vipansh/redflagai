@@ -28,7 +28,7 @@ const SignInWithGoogleButton = (props: Props) => {
         href="/dashboard/check"
       >
         <motion.div
-          className="flex px-6 py-2 space-x-2 items-center"
+          className="flex px-6 py-2 space-x-2 items-center justify-center"
           variants={buttonVariants}
           initial="initial"
           animate="animate"
@@ -43,8 +43,8 @@ const SignInWithGoogleButton = (props: Props) => {
             alt="googl_icon"
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
           />
-          <div>
-            Continue as{" "}
+          <div className="text-center">
+            Go to dashboard as{" "}
             <span className="font-bold">{user?.user_metadata.full_name}</span>
           </div>
           <img

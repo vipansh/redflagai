@@ -31,7 +31,7 @@ const Dashboard = ({ products }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [generatedBios, setGeneratedBios] = useState<string>("");
-
+  const [tokenCount, setTokenCount] = useState(0);
   const [openModal, setOpenModal] = useState<{
     modelId: string;
     extraData?: any;
@@ -46,6 +46,27 @@ const Dashboard = ({ products }: Props) => {
       }
     }
   }, []);
+
+  const getTokenCount = async (prompt: string) => {
+    try {
+      const response = await axios("/api/get-token-count", {
+        params: {
+          prompt,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return -1;
+    }
+  };
+  useEffect(() => {
+    const updateToke = async () => {
+      const tokenCounst = await getTokenCount(bio);
+      setTokenCount(tokenCounst.tokenCount);
+    };
+    updateToke();
+  }, [bio]);
 
   const generateBio = async () => {
     setGeneratedBios("");
@@ -100,20 +121,6 @@ const Dashboard = ({ products }: Props) => {
     storage.localStorage.removeItem("temp");
   };
 
-  const getTokenCount = async (prompt: string) => {
-    try {
-      const response = await axios("/api/get-token-count", {
-        params: {
-          prompt: bio,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return -1;
-    }
-  };
-
   const checkForRedFlags = async () => {
     if (!bio) {
       toast("Enter some value", {
@@ -132,7 +139,7 @@ const Dashboard = ({ products }: Props) => {
       storage.localStorage.setItem("temp", bio);
     } else {
       if (token.status) {
-        handelOpenModal("confirm", { token: token.tokenCount });
+        generateBio();
       } else {
         toast("Something went wrong", {
           icon: "✂️",
@@ -190,11 +197,19 @@ const Dashboard = ({ products }: Props) => {
                     The Tenant will pay a rental bond in the amount of [Bond Amount] to the Landlord as security for the performance of the Tenant's obligations under the lease agreement.
             `}
                     />
-                    <p className={`text-sm text-green-600  text-end`}>
-                      <span className="font-medium">
-                        Total words: {bio.length}
-                      </span>
-                    </p>
+                    {tokenCount && (
+                      <p
+                        className={`text-sm   text-end ${
+                          tokenCount < user.no_of_tokens
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
+                      >
+                        <span className="font-medium">
+                          Total token required: {tokenCount}
+                        </span>
+                      </p>
+                    )}
                   </div>
                   {!loading && (
                     <button

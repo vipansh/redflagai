@@ -34,13 +34,12 @@ const handler = async (req: Request): Promise<Response> => {
 
   //get token count
   const apiKey = process.env.OPENAI_API_KEY; // Your OpenAI API key
-  const apiUrl = "https://api.openai.com/v1/";
 
   if (!apiKey) {
     return new Response("Missing apiKey", { status: 500 });
   }
   // Calculate the number of tokens required for the actualPrompt
-  const tokenCount = await getTokens(actualPrompt, apiKey, apiUrl);
+  const tokenCount = await getTokens(actualPrompt);
   console.log(tokenCount.usage.total_tokens);
 
   //update user
