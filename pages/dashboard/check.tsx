@@ -164,7 +164,7 @@ const Dashboard = ({ products }: Props) => {
                 <div className="w-full">
                   <div className="flex mt-10 items-center space-x-3">
                     <p className="text-left font-medium">
-                      Copy and Past terms and conditions.
+                      Copy and Paste terms and conditions.
                     </p>
                   </div>
                   <div>
