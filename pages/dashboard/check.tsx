@@ -22,7 +22,7 @@ function replaceText(text: string): string {
   return text
     .replace(
       /\[start\]/g,
-      '<span class="text-lg bg-red-600 p-1 rounded text-white">'
+      '<span class="text-lg bg-red-100 p-1 rounded ">'
     )
     .replace(/\[end\]/g, "</span>");
 }
@@ -205,28 +205,26 @@ const Dashboard = ({ products }: Props) => {
                   toastOptions={{ duration: 2000 }}
                 />
                 <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-                <ResizablePanel>
-                  <AnimatePresence mode="wait">
-                    <motion.div className="space-y-10 my-10">
-                      {generatedBios && (
-                        <>
-                          <div>
-                            <h2 className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto">
-                              Here are your results
-                            </h2>
-                          </div>
-                          <div className="space-y-8 flex flex-col items-center justify-center  mx-auto">
-                            <p
-                              dangerouslySetInnerHTML={{
-                                __html: replaceText(generatedBios),
-                              }}
-                            ></p>
-                          </div>
-                        </>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </ResizablePanel>
+                <AnimatePresence mode="wait">
+                  <motion.div className="space-y-10 my-10">
+                    {generatedBios && (
+                      <>
+                        <div>
+                          <h2 className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto">
+                            Here are your results
+                          </h2>
+                        </div>
+                        <div className="space-y-8 flex flex-col items-center justify-center  mx-auto">
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: replaceText(generatedBios),
+                            }}
+                          ></p>
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
           </div>
