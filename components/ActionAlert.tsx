@@ -35,7 +35,7 @@ const ActionAlert = ({
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <CrossSvg />
+        <CrossSvg className="h-8 w-8 bg-slate-50 rounded-full p-2"/>
       </motion.div>
       <h2 className="text-lg font-bold">{heading}</h2>
       <p className="mt-2 text-sm text-gray-500">{para}</p>

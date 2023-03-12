@@ -8,6 +8,7 @@ import Link from "next/link";
 import SignInWithGoogleButton from "./SignInWithGoogleButton";
 import TextRedflagAI from "./TextRedflagAI";
 import { Product } from "../types/paddle";
+import AnoucementModal from "./AnoucementModal";
 
 type Props = {
   products?: Product[];
@@ -16,6 +17,8 @@ type Props = {
 export default function Navbar({ products }: Props) {
   const { user, loading } = useUser();
   const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showAnoucementModal, setShowAnoucementModal] = useState(false);
+
   console.log({ user });
 
   return (
@@ -27,6 +30,12 @@ export default function Navbar({ products }: Props) {
         }}
         products={products}
         heading={"Get the best value"}
+      />
+      <AnoucementModal
+        isOpen={showAnoucementModal}
+        hideModal={() => {
+          setShowAnoucementModal(false);
+        }}
       />
       <div className="mx-auto max-w-screen-xl p-4">
         <div className="flex items-center justify-between gap-4 lg:gap-10">
@@ -129,18 +138,19 @@ export default function Navbar({ products }: Props) {
                         )}
                       </Menu.Item>
                       <Menu.Item>
-                        <div
-                          className={classNames(
-                            "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
-                          )}
-                          onClick={() => {
-                            setShowBuyModal(true);
-                          }}
-                        >
-                          <div className="bg-blue-200 hover:bg-blue-300 px-2 py-2 rounded">
+                        {({ active }) => (
+                          <div
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-6 py-2 text-sm text-gray-700 cursor-pointer"
+                            )}
+                            onClick={() => {
+                              setShowAnoucementModal(true);
+                            }}
+                          >
                             Comming soon Alert
                           </div>
-                        </div>
+                        )}
                       </Menu.Item>
 
                       <Menu.Item>

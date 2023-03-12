@@ -18,7 +18,7 @@ const pricing = ({ products }: Props) => {
       <div className="m-auto h-screen my-auto">
         <Navbar products={products.response.products} />
         <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 py-16 text-center">
-          Optimize Your Pricing Strategy with RedFlag AI
+          Choose the Best Option for Your Needs
         </h1>
         <PricingTabel
           onClose={() => {}}

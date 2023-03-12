@@ -113,7 +113,7 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <CrossSvg />
+        <CrossSvg className="h-8 w-8 bg-slate-50 rounded-full p-2"/>
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
