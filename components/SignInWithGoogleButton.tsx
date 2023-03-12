@@ -34,7 +34,7 @@ const SignInWithGoogleButton = (props: Props) => {
           animate="animate"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.3 }}
         >
           <Image
             width={18}
