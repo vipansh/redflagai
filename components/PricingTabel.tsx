@@ -7,6 +7,7 @@ import { Product } from "../types/paddle";
 import { useUser } from "../context/UserContext";
 import { PaddleLoader } from "./PaddleLoader";
 import Script from "next/script";
+import { useRouter } from "next/router";
 
 interface PricingTabelProps {
   products?: Product[];
@@ -20,6 +21,27 @@ declare global {
     onPaddleClose: () => void;
   }
 }
+
+type Props = {
+  products: Product[] | undefined;
+};
+
+const productAddOn = [
+  {
+    title: "Standard Package",
+    tokens: "1000",
+  },
+  {
+    title: "Mid-tier Package",
+    tokens: "6000",
+    discount: "Save 16%",
+  },
+  {
+    title: "Plus Package",
+    tokens: "13000",
+    discount: "Save 23%",
+  },
+];
 
 const getPosition = (index: number) => {
   switch (index) {
@@ -39,13 +61,20 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
   onClose,
   heading,
 }) => {
-  const { user } = useUser();
+  const router = useRouter();
+  const { user, loading } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+
+  const productsList =
+    products?.map((product, index) => {
+      return { ...product, ...productAddOn[index] };
+    }) || [];
+
   const onUpgradeClick = (id: number, name: string) => {
-    // if (!isLoggedIn) {
-    //   router.push("#login?pricing");
-    //   return;
-    // }
+    if (!loading && !user.id) {
+      router.push("/login");
+      return;
+    }
 
     const [amount] = name.split(" ");
 
@@ -99,53 +128,48 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
         <p className="text-base text-gray-700 md:text-lg text-center my-1">
           Choose the package that fits your needs best.
         </p>
-        <div className="grid max-w-md gap-10 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto h-auto overflow-y-auto p-4">
-          {products?.map((product, index) => {
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mx-auto px-4 py-8 max-w-screen-lg">
+          {productsList?.map((data, index) => {
             const position = getPosition(index);
             return (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, ...position.initial }}
-                animate={{ opacity: 1, ...position.animate }}
+              <motion.button
+                key={data.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                className={classNames(
-                  index === 1 ? "border-yellow-500" : "",
-                  " relative block overflow-hidden flex-grow-1 border rounded-md "
-                )}
+                className={
+                  "relative overflow-hidden flex flex-col items-center justify-between w-full h-full bg-white border-2 border-gray-200 rounded-lg shadow-sm hover:shadow-lg focus:outline-none focus:ring focus:ring-blue-200 p-4"
+                }
+                onClick={() => {
+                  onUpgradeClick(data.id, data.name);
+                }}
+                disabled={isLoading}
+                whileHover={{ translateY: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div className="relative border border-gray-100 bg-white p-6">
-                  {index === 1 ? (
-                    <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
-                      Popular{" "}
+                <div
+                  className="absolute -inset-0.5 bg-blue-50 transform skew-x-45"
+                  style={{ zIndex: -1, filter: "blur(10px)" }}
+                ></div>
+                <h2 className="text-lg font-medium text-gray-700">
+                  {data?.title}
+                </h2>
+                {data?.discount && (
+                  <div className="px-2 py-1 mt-2 text-xs text-blue-500 bg-gray-100 rounded-full">
+                    {data?.discount}
+                  </div>
+                )}
+                <h2 className="text-xl font-semibold text-gray-500 mt-2">
+                  {data?.tokens} tokens{" "}
+                  <span className="text-base font-medium block">
+                    / (for{" "}
+                    <span className="paddle-gross" data-product={data.id}>
+                      {data.currency} {data.base_price}
                     </span>
-                  ) : (
-                    <span className="whitespace-nowrap  px-3 py-1.5 text-xs font-medium"></span>
-                  )}
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">
-                    Buy {product?.name}
-                  </h3>
-
-                  <p className="mt-1.5 text-sm text-gray-700 py-3">
-                    {/* {product?.metadata?.para} */}
-                  </p>
-
-                  <motion.button
-                    type="submit"
-                    disabled={isLoading}
-                    className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 disabled:bg-yellow-100 disabled:cursor-not-allowed"
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => {
-                      onUpgradeClick(product.id, product.name);
-                    }}
-                  >
-                    Buy for{" "}
-                    <span className=" paddle-gross" data-product={product.id}>
-                      {product.base_price}
-                    </span>
-                    /-
-                  </motion.button>
-                </div>
-              </motion.div>
+                    )
+                  </span>
+                </h2>
+              </motion.button>
             );
           })}
         </div>
