@@ -60,11 +60,11 @@ const Pricing = ({ products }: Props) => {
               {productsList.map((data, index) => (
                 <div
                   key={index}
-                  className={`flex items-center justify-between max-w-2xl px-8 py-4 mx-auto border cursor-help rounded-xl  ${
+                  className={`flex items-center justify-between max-w-2xl px-2 md:px-8 py-4 mx-auto border cursor-help rounded-xl  ${
                     data.discount ? "border-blue-500" : ""
                   }`}
                 >
-                  <div className="flex flex-col items-start mx-5 space-y-1">
+                  <div className="flex flex-col items-start  space-y-1">
                     <h2 className="text-lg font-medium text-gray-700 sm:text-1xl ">
                       {data.title}
                     </h2>
@@ -77,7 +77,7 @@ const Pricing = ({ products }: Props) => {
 
                   <h2
                     className={classNames(
-                      "text-1xl font-semibold text-gray-500 sm:text-4xl ",
+                      "text-1xl font-semibold text-gray-500 sm:text-4xl  ",
                       index === 2 ? "text-blue-600" : ""
                     )}
                   >
