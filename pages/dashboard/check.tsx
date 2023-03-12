@@ -48,25 +48,11 @@ const Dashboard = ({ products }: Props) => {
     }
   }, []);
 
-  const getTokenCount = async (prompt: string) => {
-    try {
-      const response = await axios("/api/get-token-count", {
-        params: {
-          prompt,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return -1;
-    }
-  };
   useEffect(() => {
-    const updateToke = async () => {
+    if (bio) {
       const tokenCounst = countTokens(bio);
       setTokenCount(tokenCounst);
-    };
-    updateToke();
+    }
   }, [bio]);
 
   const generateBio = async () => {
@@ -130,22 +116,16 @@ const Dashboard = ({ products }: Props) => {
       return;
     }
     setIsLoading(true);
-    const token = await getTokenCount(bio);
-    if (user.no_of_tokens < token.tokenCount) {
+    const token = countTokens(bio);
+    if (user.no_of_tokens < token) {
       handelOpenModal("buyTokenModal", {
         heading: `You do not have enough tokens to run this query. You need ${
-          token.tokenCount - user.no_of_tokens
+          token - user.no_of_tokens
         } more tokens.`,
       });
       storage.localStorage.setItem("temp", bio);
     } else {
-      if (token.status) {
-        generateBio();
-      } else {
-        toast("Something went wrong", {
-          icon: "✂️",
-        });
-      }
+      generateBio();
     }
     setIsLoading(false);
     console.log(token);
@@ -198,7 +178,7 @@ const Dashboard = ({ products }: Props) => {
                     The Tenant will pay a rental bond in the amount of [Bond Amount] to the Landlord as security for the performance of the Tenant's obligations under the lease agreement.
             `}
                     />
-                    {tokenCount && (
+                    {tokenCount !== 0 && (
                       <p
                         className={`text-sm   text-end ${
                           tokenCount < user.no_of_tokens
