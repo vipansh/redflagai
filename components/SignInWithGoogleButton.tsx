@@ -64,9 +64,9 @@ const SignInWithGoogleButton = (props: Props) => {
         className=" flex space-x-3 shadow-md px-4 py-2  md:px-8 md:py-3  border-2 border-blue-500 rounded-md"
         type="button"
         onClick={handelLogin}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.95 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.3 }}
         variants={buttonVariants}
         initial="initial"
         animate="animate"
