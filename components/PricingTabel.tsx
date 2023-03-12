@@ -8,6 +8,7 @@ import { useUser } from "../context/UserContext";
 import { PaddleLoader } from "./PaddleLoader";
 import Script from "next/script";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 interface PricingTabelProps {
   products?: Product[];
@@ -71,8 +72,10 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
     }) || [];
 
   const onUpgradeClick = (id: number, name: string) => {
-    if (!loading && !user.id) {
-      router.push("/login");
+    if (!loading && !user) {
+      toast("You need to login first", {
+        icon: "❌",
+      });
       return;
     }
 
@@ -113,7 +116,7 @@ const PricingTabel: React.FC<PricingTabelProps> = ({
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <CrossSvg className="h-8 w-8 bg-slate-50 rounded-full p-2"/>
+        <CrossSvg className="h-8 w-8 bg-slate-50 rounded-full p-2" />
       </motion.div>
       <motion.div
         initial={{ opacity: 0 }}
