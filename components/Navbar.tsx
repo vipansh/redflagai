@@ -128,6 +128,20 @@ export default function Navbar({ products }: Props) {
                         </Link>
                       )}
                     </Menu.Item>
+                    <Menu.Item>
+                      <div
+                        className={classNames(
+                          "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                        )}
+                        onClick={() => {
+                          setShowBuyModal(true);
+                        }}
+                      >
+                        <div className="bg-blue-200 hover:bg-blue-300 px-2 py-2 rounded">
+                          Comming soon Alert
+                        </div>
+                      </div>
+                    </Menu.Item>
 
                     <Menu.Item>
                       {({ active }) => (
