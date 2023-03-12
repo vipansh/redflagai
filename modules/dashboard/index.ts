@@ -1,2 +1,5 @@
 import AllPopUps from "./AllPopUps";
-export { AllPopUps };
+import CreateForm from "./CreateBoard/CreateForm"
+
+
+export { AllPopUps, CreateForm };

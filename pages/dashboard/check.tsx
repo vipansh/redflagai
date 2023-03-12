@@ -8,6 +8,7 @@ import {
   ThreeDotWave,
   Anoucement,
   Confetti,
+  MetaData,
 } from "../../components";
 import { AllPopUps } from "../../modules";
 import storage from "../../utils/storage";
@@ -141,6 +142,7 @@ const Dashboard = ({ products }: Props) => {
 
   return (
     <>
+      <MetaData />
       <div className="bg-white relative">
         <header className="fixed right-0 top-0 left-0 bg-yellow-50 py-1 px-4 ">
           <Navbar products={products.response.products} />
