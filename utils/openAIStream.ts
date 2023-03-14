@@ -27,23 +27,35 @@ export async function OpenAIStream(payload: string) {
         {
           role: "user",
           content:
-            `As an expert drafter, your objective is to carefully review the provided terms and conditions and identify any red flags - that is, any potentially problematic or unclear statements that could impact the client's interests or rights. Your task is to send a report highlighting the specific words or phrases containing a red flag with <span class="text-lg bg-red-100 p-1 rounded "> before and </span> after. It is important to choose the most important words or phrases in a sentence and highlight only those, rather than highlighting the entire sentence. Your report should include at least one <span class="text-lg bg-red-100 p-1 rounded "> and </span>, but you may include additional ones if necessary. If your report includes a numbered list, use the tailwind css format <ol class="list-decimal list-inside"> for a better UI. Use clear and concise language that is easy for the client to understand. When identifying red flags, pay attention to any statements that could be interpreted in different ways, contain unusual or undefined terms, or appear to limit or waive the client's rights or options. Highlight issues based solely on the terms and conditions provided, without assuming or inferring anything beyond what is explicitly stated. Your report should only include the specific words or phrases containing a red flag and not the entire terms and conditions document.`,
+            `As an expert drafter, your task is to carefully review the provided terms and conditions document and identify any red flags - that is, potentially problematic or unclear statements that could impact the client's interests or rights. To complete this task, you must strictly adhere to the following guidelines:
+
+            Use the tailwind css format <span class="text-lg bg-red-100 p-1 rounded ">red flag text</span> to highlight specific words or phrases containing a red flag. You should only highlight the most important words or phrases in a sentence that contain a red flag. Do not highlight entire sentences.
+            
+            Your report should use clear and concise language that is easy for the client to understand. Avoid using technical or legal jargon as much as possible. If your report includes a numbered list, use the tailwind css format <ol class="list-decimal list-inside"> for a better UI.
+            
+            Pay close attention to any statements that could be interpreted in different ways, contain unusual or undefined terms, or appear to limit or waive the client's rights or options. Highlight issues based solely on the terms and conditions provided, without assuming or inferring anything beyond what is explicitly stated.
+            
+            Your report should include at least one <span class="text-lg bg-red-100 p-1 rounded ">some text thats most important for you</span>, but you may include additional ones if necessary. It should only include the specific words or phrases containing a red flag and not the entire terms and conditions document.
+            
+            Your report should be concise and accurately identify any red flags based solely on the terms and conditions provided. Do not assume or infer anything beyond what is explicitly stated.`,
         },
         {
           role: "assistant",
           content:
             `Got it, I understand your instructions that my report should follow these guidelines:
             1.Use the tailwind css format <span class="text-lg bg-red-100 p-1 rounded ">red flag text</span> to highlight specific words or phrases containing a red flag.
-            2.Choose the most important words or phrases in a sentence to highlight and avoid highlighting the entire sentence.
+            2.Highlight only the most important words or phrases in a sentence that contain a red flag. Do not highlight entire sentences.
             3.Use clear and concise language that is easy for the client to understand.
             4.If your report includes a numbered list, use the tailwind css format <ol class="list-decimal list-inside"> for a better UI.
             5.Pay attention to statements that could be interpreted in different ways, contain unusual or undefined terms, or appear to limit or waive the client's rights or options.
             6.Highlight issues based solely on the terms and conditions provided, without assuming or inferring anything beyond what is explicitly stated.
             7.Include at least one <span class="text-lg bg-red-100 p-1 rounded ">red flag text</span>, but you may include additional ones if necessary.
             8Your report should only include the specific words or phrases containing a red flag and not the entire terms and conditions document.
-            Please provide me with the terms and conditions that need to be reviewed.
+            
             `,
         },
+        { role: "user", content: "Should i sear the terms and conditions now" },
+        { role: "assistant", content: payload }, { role: "user", content: "Yes,Please provide me with the terms and conditions that need to be reviewed." },
 
         { role: "user", content: payload },
       ],
