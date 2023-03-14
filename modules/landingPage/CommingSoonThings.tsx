@@ -21,9 +21,9 @@ const CommingSoonThings = (props: Props) => {
             Get ready for two powerful new tools that will make your life
             easier:
           </p>
-          <div className="mb-8">
+          <div className="my-8">
             <h3 className="text-xl font-medium mb-2">
-              Ask a Question for Terms and Conditions:
+              1. Ask a Question for Terms and Conditions:
             </h3>
             <p className="text-base">
               Wondering if you can change data under any terms and conditions?
@@ -33,7 +33,7 @@ const CommingSoonThings = (props: Props) => {
           </div>
           <div className="mb-8">
             <h3 className="text-xl font-medium mb-2">
-              AI-Generated Terms and Conditions Templates:
+              2. AI-Generated Terms and Conditions Templates:
             </h3>
             <p className="text-base">
               Our platform will{" "}

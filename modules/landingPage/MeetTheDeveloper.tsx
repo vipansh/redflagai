@@ -135,7 +135,7 @@ const MeetTheDeveloper = (props: Props) => {
                   className="rounded-full border-8 border-cyan-200 cursor-none"
                 />
               </div>
-              <div className="text-center">
+              <div className="text-center my-4 mt-8">
                 Meet the developer behind this project
               </div>
             </div>

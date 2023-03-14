@@ -22,11 +22,11 @@ const HeroSection = (props: Props) => {
         <Link href={"/"} className="flex space-x-2 items-center justify-center">
           <FireSvg className="block h-16 w-16" />
         </Link>
-        <h1 className="text-4xl md:text-7xl font-bold mb-14 relative text-center text-zinc-700">
+        <h1 className="text-4xl md:text-6xl font-bold pb-14 relative text-center text-zinc-700">
           Revolutionize your legal document review process with -
           <Link
             href={"/"}
-            className="flex space-x-2 items-center justify-center m-1"
+            className="flex space-x-2 items-center justify-center p-1"
           >
             <TextRedflagAI />
           </Link>
