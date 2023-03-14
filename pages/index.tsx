@@ -23,7 +23,6 @@ interface Props {
 }
 
 const Home = ({ products }: Props) => {
-  const { user, loading } = useUser();
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   return (
