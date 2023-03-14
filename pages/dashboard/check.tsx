@@ -130,7 +130,7 @@ const Dashboard = ({ products }: Props) => {
     <>
       <div className="bg-white relative">
         <header className="fixed right-0 top-0 left-0 bg-yellow-50 py-1 px-4 ">
-          <Navbar products={products.response.products} />
+          <Navbar />
         </header>
         <main className="pt-16 max-h-screen overflow-auto w-full">
           <div className="px-6 py-8">
@@ -236,7 +236,6 @@ const Dashboard = ({ products }: Props) => {
               modelId: "",
             });
           }}
-          products={products.response.products}
           generateBio={generateBio}
         />
         <Anoucement />
@@ -249,35 +248,34 @@ const Dashboard = ({ products }: Props) => {
 export default Dashboard;
 
 export const getStaticProps = async () => {
-  const options = {
-    method: "POST",
-    url: "https://sandbox-vendors.paddle.com/api/2.0/product/get_products",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    data: {
-      vendor_id: Number(process.env.NEXT_PUBLIC_PADDLE_SANDBOX),
-      vendor_auth_code: process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE,
-      country: "INR",
+  // const options = {
+  //   method: "POST",
+  //   url: "https://sandbox-vendors.paddle.com/api/2.0/product/get_products",
+  //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  //   data: {
+  //     vendor_id: Number(process.env.NEXT_PUBLIC_PADDLE_SANDBOX),
+  //     vendor_auth_code: process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE,
+  //     country: "INR",
+  //   },
+  // };
+  // console.log(
+  //   "env",
+  //   process.env.NEXT_PUBLIC_PADDLE_SANDBOX,
+  //   process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE
+  // );
+  // try {
+  //   const response = await axios.request(options);
+
+  //   return {
+  //     props: {
+  //       products: response.data,
+  //     },
+  //   };
+  // } catch (error) {
+  //   console.error({ error, d: "r" });
+  return {
+    props: {
+      products: [],
     },
   };
-  console.log(
-    "env",
-    process.env.NEXT_PUBLIC_PADDLE_SANDBOX,
-    process.env.NEXT_PUBLIC_PADDLE_SANDBOX_AUTH_CODE
-  );
-  try {
-    const response = await axios.request(options);
-
-    return {
-      props: {
-        products: response.data,
-      },
-    };
-  } catch (error) {
-    console.error({ error, d: "r" });
-    return {
-      props: {
-        products: [],
-      },
-    };
-  }
 };

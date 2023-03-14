@@ -23,14 +23,14 @@ export default function Navbar({ products }: Props) {
 
   return (
     <header aria-label="Site Header" className="shadow-sm">
-      <BuyTokenModal
+      {/* <BuyTokenModal
         isOpen={showBuyModal}
         onClose={() => {
           setShowBuyModal(false);
         }}
         products={products}
         heading={"Get the best value"}
-      />
+      /> */}
       <AnoucementModal
         isOpen={showAnoucementModal}
         hideModal={() => {
