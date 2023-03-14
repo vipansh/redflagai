@@ -4,11 +4,11 @@ import background from "public/background.jpg";
 type Props = {};
 
 const features = [
-  {
-    name: "Login",
-    description:
-      "Log in to Redflag AI with your Google account to start checking your project's terms and conditions for problematic language or clauses.",
-  },
+  // {
+  //   name: "Login",
+  //   description:
+  //     "Log in to Redflag AI with your Google account to start checking your project's terms and conditions for problematic language or clauses.",
+  // },
   {
     name: "Copy and paste T&C",
     description:
@@ -67,7 +67,7 @@ const WhatAmISolving = (props: Props) => {
               </p>
             </div>
             <div className="mx-auto mt-8 sm:mt-16">
-              <dl className="grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
+              <dl className="grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-2 lg:gap-y-16">
                 {features.map((feature, index) => (
                   <div key={feature.name} className="relative px-1 mx-1">
                     <div className="text-base font-semibold text-gray-900 flex space-x-2 items-center justify-start">

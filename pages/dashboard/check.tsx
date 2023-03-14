@@ -116,26 +116,13 @@ const Dashboard = ({ products }: Props) => {
       return;
     }
     setIsLoading(true);
-    const token = countTokens(bio);
-    if (user.no_of_tokens < token) {
-      handelOpenModal("buyTokenModal", {
-        heading: `You do not have enough tokens to run this query. You need ${
-          token - user.no_of_tokens
-        } more tokens.`,
-      });
-      storage.localStorage.setItem("temp", bio);
-    } else {
-      generateBio();
-    }
+    await generateBio();
     setIsLoading(false);
-    console.log(token);
   };
 
   const dummyTerms = () => {
     setBio(`User Data: By using our service, you agree to allow us to collect and store your data, including but not limited to your contacts, camera and microphone permissions, and access to your Google Drive. We reserve the right to share this data with third parties for industry and marketing purposes, but we will anonymize the data before sharing it. However, please note that even anonymized data can still reveal sensitive information about your behavior and preferences. We will take all necessary measures to protect your data, including implementing strong data encryption and security measures, but we cannot guarantee the security of your data against unauthorized access or disclosure. By agreeing to these terms and conditions, you acknowledge and accept the risks involved in using our service and sharing your data with us.
-
     Limitation of Liability: In no event shall we be liable for any indirect, incidental, special, punitive, or consequential damages arising out of or in connection with your use of our service. Our total liability to you for any and all claims arising from your use of the service, regardless of the form of action, shall be limited to the amount paid by you to us, if any, for the service during the term of use.
-    
     Intellectual Property: All intellectual property rights in the service, including but not limited to copyright, trademark, and patent rights, are owned by us or our licensors. You may not use, copy, reproduce, distribute, transmit, broadcast, display, sell, license, or otherwise exploit any content on the service for any other purposes without our prior written consent. You agree to indemnify and hold us harmless from any claim or demand, including attorneys' fees, arising out of your use of the service or any violation of these terms and conditions.`);
   };
 
@@ -181,7 +168,7 @@ const Dashboard = ({ products }: Props) => {
                     {tokenCount !== 0 && (
                       <p
                         className={`text-sm   text-end ${
-                          tokenCount < user.no_of_tokens
+                          tokenCount < user?.no_of_tokens
                             ? "text-green-600"
                             : "text-red-600"
                         }`}

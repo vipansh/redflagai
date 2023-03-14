@@ -42,10 +42,10 @@ const HeroSection = (props: Props) => {
           <div className="flex flex-wrap justify-center">
             <SignInWithGoogleButton />
           </div>
-          <h1 className="mt-4 text-3xl font-semibold text-center ">
+          {/* <h1 className="mt-4 text-3xl font-semibold text-center ">
             New users, sign up now for <TextRedflagAI /> and get 10,000 tokens
             for free!
-          </h1>
+          </h1> */}
         </div>
       </div>
     </section>

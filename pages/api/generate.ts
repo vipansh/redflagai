@@ -41,38 +41,10 @@ const handler = async (req: Request): Promise<Response> => {
   // Calculate the number of tokens required for the actualPrompt
   const tokenCount = await getTokens(actualPrompt);
   console.log(tokenCount.usage.total_tokens);
-
   //update user
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser(authToken);
-  if (!user) return new Response("Login in again", { status: 500 });
-  if (error) return new Response("Missing apiKey", { status: 500 });
-
-  const { data: userData } = await supabase
-    .from("profiles")
-    .select("no_of_tokens")
-    .eq("id", user.id)
-    .single();
-  if (!userData) return new Response("No user found", { status: 500 });
-
-  if (userData?.no_of_tokens < tokenCount.usage.total_tokens) {
-    return new Response("Not enough token in account");
-  }
-
-  const { error: updateError } = await supabase
-    .from("profiles")
-    .update({
-      no_of_tokens: userData?.no_of_tokens - tokenCount.usage.total_tokens,
-    })
-    .eq("id", user.id);
-  if (updateError) return new Response("No data in profile ", { status: 500 });
-
   const { data: upsertData, error: upsertError } = await supabase
     .from("orders")
     .insert({
-      user_id: user.id,
       token_debited: tokenCount.usage.total_tokens,
       input: actualPrompt,
       status: true,

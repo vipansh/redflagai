@@ -38,7 +38,7 @@ const Home = ({ products }: Props) => {
         <HeroSection />
         <WhatAmISolving />
         <CommingSoonThings />
-        <Pricing products={products.response.products} />
+        {/* <Pricing products={products.response.products} /> */}
         <MeetTheDeveloper />
         <Footer />
       </main>
