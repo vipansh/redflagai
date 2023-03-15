@@ -20,42 +20,29 @@ const handler = async (req: Request): Promise<Response> => {
   }
   const actualPrompt = prompt;
 
-  const cookieHeader = req.headers.get("cookie");
-  const cookies: { [key: string]: string } = {};
-  if (cookieHeader) {
-    const cookiePairs = cookieHeader.split("; ");
-    for (const pair of cookiePairs) {
-      const [name, value] = pair.split("=");
-      cookies[name] = decodeURIComponent(value);
-    }
-  }
-
-  const authToken = cookies.token;
-
-  //get token count
   const apiKey = process.env.OPENAI_API_KEY; // Your OpenAI API key
 
   if (!apiKey) {
     return new Response("Missing apiKey", { status: 500 });
   }
+
   // Calculate the number of tokens required for the actualPrompt
   const tokenCount = await getTokens(actualPrompt);
-  console.log(tokenCount.usage.total_tokens);
-  //update user
-  const { data: upsertData, error: upsertError } = await supabase
-    .from("orders")
-    .insert({
-      token_debited: tokenCount.usage.total_tokens,
-      input: actualPrompt,
-      status: true,
-    });
 
-  if (upsertError) {
-    console.log({ upsertData, upsertError });
-    return new Response("Unable to create order", { status: 500 });
-  }
+
+
+
+  supabase
+  .from("orders")
+  .insert({
+    token_debited: tokenCount.usage.total_tokens,
+    input: actualPrompt,
+    status: true,
+  });
+
 
   const stream = await OpenAIStream(actualPrompt);
+
   return new Response(stream);
 };
 
