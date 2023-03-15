@@ -168,12 +168,12 @@ const Dashboard = ({ products }: Props) => {
                     {tokenCount !== 0 && (
                       <p
                         className={`text-sm   text-end ${
-                          tokenCount < 70000 ? "text-green-600" : "text-red-600"
+                          tokenCount < 7000 ? "text-green-600" : "text-red-600"
                         }`}
                       >
                         <span className="font-medium">
                           Approx token required: {tokenCount}{" "}
-                          {tokenCount > 70000 &&
+                          {tokenCount > 7000 &&
                             `using more thna 7K token in a single request is not supported`}
                         </span>
                       </p>
