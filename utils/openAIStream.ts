@@ -51,11 +51,9 @@ export async function OpenAIStream(payload: string) {
             6.Highlight issues based solely on the terms and conditions provided, without assuming or inferring anything beyond what is explicitly stated.
             7.Include at least one <span class="text-lg bg-red-100 p-1 rounded ">red flag text</span>, but you may include additional ones if necessary.
             8Your report should only include the specific words or phrases containing a red flag and not the entire terms and conditions document.
-            
+            Yes,Please provide me with the terms and conditions that need to be reviewed.
             `,
         },
-        { role: "user", content: "Should i sear the terms and conditions now" },
-        { role: "assistant", content: payload }, { role: "user", content: "Yes,Please provide me with the terms and conditions that need to be reviewed." },
 
         { role: "user", content: payload },
       ],
