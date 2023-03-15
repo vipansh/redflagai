@@ -168,13 +168,13 @@ const Dashboard = ({ products }: Props) => {
                     {tokenCount !== 0 && (
                       <p
                         className={`text-sm   text-end ${
-                          tokenCount < 5000 ? "text-green-600" : "text-red-600"
+                          tokenCount < 70000 ? "text-green-600" : "text-red-600"
                         }`}
                       >
                         <span className="font-medium">
                           Approx token required: {tokenCount}{" "}
-                          {tokenCount > 5000 &&
-                            `using more thna 5K token in a single request is not supported`}
+                          {tokenCount > 70000 &&
+                            `using more thna 7K token in a single request is not supported`}
                         </span>
                       </p>
                     )}
@@ -184,7 +184,7 @@ const Dashboard = ({ products }: Props) => {
                       className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full disabled:bg-black/50"
                       onClick={(e) => {
                         e.preventDefault();
-                        if (tokenCount > 5000) {
+                        if (tokenCount > 7000) {
                           toast("To much data");
                           return;
                         }
