@@ -48,7 +48,7 @@ const Anoucement = (props: Props) => {
       <div className="fixed inset-x-0 bottom-0">
         <div className="bg-indigo-600 px-4 py-3 text-white">
           <p className="text-center text-sm font-medium">
-            Comming Soon : Unlock power to write and customize terms and
+            Coming Soon : Unlock power to write and customize terms and
             policies in a fraction of a second
             <span
               className="inline-block underline ml-2 cursor-pointer"
