@@ -137,7 +137,7 @@ const Dashboard = ({ products }: Props) => {
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-3xl p-8 mb-5">
                 <h1 className="text-3xl font-bold mb-10 w-full text-center">
-                  Search for Red flags in terms and confitions
+                  Search for Red flags in terms and conditions
                 </h1>
 
                 <hr className="my-10" />
